@@ -30,12 +30,19 @@ import plic.exceptions.AnalyseLexicaleException;
 
 csteE = [0-9]+
 csteB = "vrai" | "faux"
+statut = "publique" | "privee"
+
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 
 %%
 
+"classe"            { return symbol(CodesLexicaux.CLASS); }
+"entier"            { return symbol(CodesLexicaux.TYPE); }
+"fin"        		{ return symbol(CodesLexicaux.FIN); }
+"="                    { return symbol(CodesLexicaux.EGALE); }
+"ecrire"            { return symbol(CodesLexicaux.ECRIR); }
 "+"                	{ return symbol(CodesLexicaux.PLUS); }
 "-"                	{ return symbol(CodesLexicaux.MOINS); }
 "*"                	{ return symbol(CodesLexicaux.MULT); }
@@ -53,6 +60,7 @@ espace = {finDeLigne}  | [ \t\f]
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
+{statut}            { return symbol(CodesLexicaux.STATUT); }
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 

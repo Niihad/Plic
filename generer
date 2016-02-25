@@ -1,0 +1,60 @@
+#! /bin/csh
+#recuperation de nom du fichier . toucan ensuite Main
+
+#test des parametres.
+# entrée pour les tests
+set cup = java-cup-11a.jar;
+
+set analyseurLexicalPath = plic/analyse/AnalyseurLexical.jflex
+set grammairePath = plic/analyse/Grammaire.cup
+set jarCupPath = $cup
+set jarJflexPath = jflex-1.6.1.jar
+
+# entrée pour l'execution
+set analyseurLexical = AnalyseurLexical.jflex
+set grammaire = Grammaire.cup
+set jarCup = ../../$cup
+set jarJflex = ../../jflex-1.6.1.jar
+set analyseurSyntaxique = AnalyseurSyntaxique
+set codeLexicaux = CodesLexicaux
+
+
+if ($#argv != 0) then
+    echo "usage : $0 [doit etre dans src pour fonctionner]"
+    exit(1)
+endif
+
+#test de l'existance du jar de cup
+if (!(-e $jarCupPath)) then
+    echo  $jarCupPath " n'existe pas ou vous ete mal placé (src)"
+    exit(1)
+endif
+
+#test de l'existance du jar de cup
+if (!(-e $jarJflexPath)) then
+    echo  $jarJflexPath" n'existe pas ou vous ete mal placé (src)"
+    exit(1)
+endif
+
+#test de l'existance de l'analyseur lexical
+if (!(-e $analyseurLexicalPath)) then
+    echo  $analyseurLexicalPath" n'existe pas ou vous ete mal placé (src)"
+    exit(1)
+endif
+
+#test de l'existance de la grammaire
+if (!(-e $grammairePath)) then
+    echo  $grammairePath" n'existe pas ou vous ete mal placé (src)"
+    exit(1)
+endif
+
+#deplacement dans le bon dossier
+cd plic/analyse/
+
+echo "generation du cup avec $cup"
+
+java -jar $jarCup -parser $analyseurSyntaxique -symbols $codeLexicaux $grammaire
+echo "generation du jflex"
+java -jar $jarJflex $analyseurLexical
+
+

@@ -67,22 +67,17 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal String CSTE_ENT, PARENTHESE_OUVERT, PARENTHESE_FERMER, PLUS, MOINS, FOIS, INF, SUP, TEST_EGAL, TEST_NON_EGAL,
-				CLASS, IDF, FIN, VIRGULE, POINT_VIRGULE, STATUT, TYPE, EGALE, LIR, ECRIR, CSTE_CHAINE;
-
 non terminal ArbreAbstrait SYSTEME, CLASSE;
-non terminal String	DECLARATION, LDECLARATION, DECL_CHAMP, LIDF, DECL_CONST, INSTRUCTION, AFFECT, LIRE, ECRIRE;
-non terminal Expression EXP;
+non terminal String DECLARATION, LDECLARATION, DECL_CHAMP, LIDF, DECL_CONST, INSTRUCTION, AFFECT, ECRIRE, LINSTRUCTION;
+non terminal Expression EXPR, CSTE;
 
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL ;
+terminal Symbol    CLASS, STATUT, FIN, TYPE , EGALE, ECRIR;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, VIRGULE, POINT_VIRGULE, IDF, CONSTANTECHAINE ;
    
 /* Non terminals used in the grammar section.  */
-
-non terminal ArbreAbstrait PROG ;
-non terminal Expression EXPR, CSTE ;
 
 precedence left INF, SUP ;
 precedence left EGALEGAL, DIFF;
@@ -100,10 +95,11 @@ SYSTEME    ::=  CLASSE:c
                 {: BlocDInstructions arbre = new BlocDInstructions() ;
                    arbre.ajouter(c) ;
                    RESULT = arbre ;
-                    :}
+                    :};
+
   	        
-CLASSE ::= CLASS:classe IDF:nomClasse LDECLARATION FIN ;  		
-   		
+CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION FIN ;  
+
 LDECLARATION ::= LDECLARATION DECLARATION
 			 | DECLARATION;		
 				 		
@@ -122,18 +118,18 @@ LIDF ::= VIRGULE IDF:idf LIDF
 
 DECL_CONST ::= LINSTRUCTION;
            
-LINSTRUCTION ::= LINSTRUCTION INSTRUCTION;
+LINSTRUCTION ::= LINSTRUCTION INSTRUCTION
              |  INSTRUCTION;
 
 INSTRUCTION ::= AFFECT | ECRIRE;
 
-AFFECT ::= IDF:idf EGALE EXP:e
+AFFECT ::= IDF:idf EGALE EXPR:e
 		   {: lexique.ajouterAction(new Affectation(idf,e)) ;:};
 
 
-ECRIRE ::= ECRIR CSTE_CHAINE:chaine
+ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 		   {:  lexique.ajouterAction(new EcrireChaine(chaine,j)); j++;:}
-   	   | ECRIR EXP:e 
+   	   | ECRIR EXPR:e 
 		 {:  lexique.ajouterAction(new EcrireExpression(e)); :};
 
     
