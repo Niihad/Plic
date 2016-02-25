@@ -4,6 +4,7 @@ import java.util.*;
 import plic.arbre.* ;
 import plic.arbre.expression.* ;
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.arbre.tds.*;
 
 import java_cup.runtime.*;
 
@@ -98,7 +99,8 @@ start with SYSTEME ;
 SYSTEME    ::=  CLASSE:c
                 {: BlocDInstructions arbre = new BlocDInstructions() ;
                    arbre.ajouter(c) ;
-                   RESULT = arbre ; :}
+                   RESULT = arbre ;
+                    :}
   	        
 CLASSE ::= CLASS:classe IDF:nomClasse LDECLARATION FIN ;  		
    		
@@ -109,14 +111,14 @@ DECLARATION  ::= DECL_CHAMP POINT_VIRGULE
 			 | DECL_CONST POINT_VIRGULE;
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			   {: variables.ajouterVariable(idf,deplacement); deplacement += 4; :}
+			   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :}
    		   | STATUT:s TYPE:t IDF:idf LIDF 
-   			   {: variables.ajouterVariable(idf,deplacement); deplacement += 4;  :};
+   			   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t));  :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
-		 {: variables.ajouterVariable(idf,deplacement); deplacement += 4; :}
+		 {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :}
 	 | VIRGULE IDF:idf
-	   {: variables.ajouterVariable(idf,deplacement); deplacement += 4; :};
+	   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :};
 
 DECL_CONST ::= LINSTRUCTION;
            

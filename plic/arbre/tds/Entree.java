@@ -4,12 +4,12 @@ public class Entree {
 	
 	protected String idf;
 	public int ligne;
-	public int colonne;
+	/*public int colonne;*/
 	
-	public Entree(String idf, int ligne, int colonne) {
+	public Entree(String idf, int ligne/*, int colonne*/) {
 		this.idf = idf;
 		this.ligne = ligne;
-		this.colonne = colonne;
+		/*this.colonne = colonne;*/
 	}
 	
 	public void setEntree(String idf) {
@@ -18,6 +18,10 @@ public class Entree {
 	
 	public String getEntree() {
 		return idf;
+	}
+	
+	public int getLigne(){
+		return ligne;
 	}
 	
 	public boolean equals(Object o) {

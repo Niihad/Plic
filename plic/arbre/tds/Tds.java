@@ -7,9 +7,9 @@ import plic.exceptions.PasDeDeclarationException;
 
 public class Tds {
 	
-	HashMap<Entree, Symbole> tds;
-	private int nbLigne;
-
+	private HashMap<Entree, Symbole> tds;
+	private int deplacement;
+	
 	private Tds(){
 		tds =  new HashMap<Entree, Symbole>();
 	}
@@ -31,21 +31,26 @@ public class Tds {
 	public void ajouterChamp(Entree entree, Symbole s) throws DoubleDeclarationException{
 		// si la variable est deja declarée lance une exception 
 		if (tds.containsKey(entree.getEntree())){
-			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré");
-		}else{ // sinon ajoute la variable dans la hashMap
+			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré", entree.getLigne());
+		}else{ // sinon ajoute la variable da ns la hashMap
 			tds.put(entree, s);
-			s.setDeplacement(s.getDeplacement() + 4);;
+			s.setDepl(deplacement);
+			switch (s.getType()){
+			case "entier":
+				deplacement -= 4;
+				break;
+			case "reel":
+				deplacement -= 8;
+				break;
+			}			
 		}
 	}	
 	
 	public Symbole identifier(Entree entree) throws PasDeDeclarationException{
 		Symbole s = tds.get(entree.getEntree());
 		if(s==null){
-			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaté !");
+			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaré !", entree.getLigne());
 		}
 		return tds.get(entree.getEntree());
 	}
-
-	
-
 }

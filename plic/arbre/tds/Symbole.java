@@ -1,45 +1,43 @@
 package plic.arbre.tds;
 
-import plic.arbre.DeclarationChamps.Statut;
-import plic.arbre.DeclarationChamps.Type;
-
 public class Symbole {
 	
-	private Statut statut;
-	private Type type;
-	private int deplacement ;
+	private String statut;
+	private String type;
+	private int depl;
     
-    public Symbole(Statut statut, Type type, int deplacement) {
+    public Symbole(String statut, String type) {
     	this.statut = statut;
     	this.type = type;
-        this.deplacement = deplacement;
     }
  
-    public Statut getStatut() {
+    public String getStatut() {
 		return statut;
 	}
 
-	public void setStatut(Statut statut) {
+	public void setStatut(String statut) {
 		this.statut = statut;
 	}
 
-	public Type getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(String type) {
 		this.type = type;
 	}
-
-	public int getDeplacement() {
-        return deplacement;
-    }
- 
-    public void setDeplacement(int deplacement) {
-        this.deplacement = deplacement;
-    }
+	
+	
     
     public String toString(){
-    	return statut+" "+type+" "+deplacement;
+    	return statut+" "+type;
     }
+
+	public int getDepl() {
+		return depl;
+	}
+
+	public void setDepl(int depl) {
+		this.depl = depl;
+	}
 }
