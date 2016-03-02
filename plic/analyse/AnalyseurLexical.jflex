@@ -28,6 +28,7 @@ import plic.exceptions.AnalyseLexicaleException;
   }
 %}
 
+idf = [a-zA-Z][a-zA-Z0-9]*
 csteE = [0-9]+
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
@@ -35,6 +36,8 @@ statut = "publique" | "privee"
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
+
+commentaireSlashSlash = [/][/].*
 
 %%
 
@@ -59,11 +62,15 @@ espace = {finDeLigne}  | [ \t\f]
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
+","                	{ return symbol(CodesLexicaux.VIRGULE); }
+";"                	{ return symbol(CodesLexicaux.POINT_VIRGULE); }
 
 {statut}            { return symbol(CodesLexicaux.STATUT, yytext()); }
+{idf}		{ return symbol(CodesLexicaux.IDF, yytext()); }
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 
 {espace}                { }
+{commentaireSlashSlash} 	{}
 
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

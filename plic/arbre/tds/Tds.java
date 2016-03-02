@@ -57,6 +57,12 @@ public class Tds {
 		}
 		return tds.get(entree.getEntree());
 	}
+	
+	public int getDeplacement(Entree entree) throws PasDeDeclarationException{
+		Symbole s = tds.get(entree.getEntree());
+		this.identifier(entree);
+		return s.getDepl();
+	}
 
 	public String getDernierStatut() {
 		return dernierStatut;

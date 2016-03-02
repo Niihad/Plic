@@ -6,10 +6,14 @@ public class Entree {
 	public int ligne;
 	/*public int colonne;*/
 	
-	public Entree(String idf, int ligne/*, int colonne*/) {
+	public Entree(String idf, int ligne) {
 		this.idf = idf;
 		this.ligne = ligne;
-		/*this.colonne = colonne;*/
+	}
+	
+	public Entree(String idf) {
+		this.idf = idf;
+		this.ligne = 0;
 	}
 	
 	public void setEntree(String idf) {
