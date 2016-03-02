@@ -724,7 +724,7 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
             }
           case 42: break;
           case 20: 
-            { return symbol(CodesLexicaux.STATUT);
+            { return symbol(CodesLexicaux.STATUT, yytext());
             }
           case 43: break;
           case 21: 

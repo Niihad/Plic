@@ -5,6 +5,8 @@ import plic.arbre.* ;
 import plic.arbre.expression.* ;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import plic.arbre.tds.*;
+import plic.instructions.*;
+
 
 import java_cup.runtime.*;
 
@@ -30,6 +32,13 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ET), "et") ;
         lesTerminaux.put(new Integer(CodesLexicaux.OU), "ou") ;
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.CLASS), "classe") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.EGALE), "=") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ECRIR), "ecrire") ;
+        
+        lesTerminaux.put(new Integer(CodesLexicaux.STATUT), "publique | privee") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.TYPE), "entier") ;
 
         StringBuffer m = new StringBuffer() ;
 
@@ -68,14 +77,15 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 non terminal ArbreAbstrait SYSTEME, CLASSE;
-non terminal String DECLARATION, LDECLARATION, DECL_CHAMP, LIDF, DECL_CONST, INSTRUCTION, AFFECT, ECRIRE, LINSTRUCTION;
+non terminal String DECLARATION, LDECLARATION, DECL_CHAMP, LIDF, DECL_CONST, INSTRUCTION, ECRIRE, LINSTRUCTION;
+non terminal Affectation AFFECT;
 non terminal Expression EXPR, CSTE;
 
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal Symbol    CLASS, STATUT, FIN, TYPE , EGALE, ECRIR;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, VIRGULE, POINT_VIRGULE, IDF, CONSTANTECHAINE ;
+terminal Symbol    CLASS, FIN, EGALE, ECRIR;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, VIRGULE, POINT_VIRGULE, IDF, CONSTANTECHAINE, STATUT, TYPE;
    
 /* Non terminals used in the grammar section.  */
 
@@ -107,14 +117,14 @@ DECLARATION  ::= DECL_CHAMP POINT_VIRGULE
 			 | DECL_CONST POINT_VIRGULE;
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :}
+			   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(s, t)); :}
    		   | STATUT:s TYPE:t IDF:idf LIDF 
-   			   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t));  :};
+   			   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(s, t));  :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
-		 {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :}
+		 {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :}
 	 | VIRGULE IDF:idf
-	   {: Tds.getInstance().ajouterChamp(new Entree(idf, eleft), new Symbole(s, t)); :};
+	   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :};
 
 DECL_CONST ::= LINSTRUCTION;
            
@@ -124,13 +134,13 @@ LINSTRUCTION ::= LINSTRUCTION INSTRUCTION
 INSTRUCTION ::= AFFECT | ECRIRE;
 
 AFFECT ::= IDF:idf EGALE EXPR:e
-		   {: lexique.ajouterAction(new Affectation(idf,e)) ;:};
+                {: RESULT = new Affectation(idf, e) ; :};
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
-		   {:  lexique.ajouterAction(new EcrireChaine(chaine,j)); j++;:}
-   	   | ECRIR EXPR:e 
-		 {:  lexique.ajouterAction(new EcrireExpression(e)); :};
+		  // {:  Tds.getInstance().ajouterAction(new EcrireChaine(chaine,j)); j++;:}
+   	   | ECRIR EXPR:e;
+		 //{:  Tds.getInstance().ajouterAction(new EcrireExpression(e)); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

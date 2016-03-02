@@ -60,7 +60,7 @@ espace = {finDeLigne}  | [ \t\f]
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
-{statut}            { return symbol(CodesLexicaux.STATUT); }
+{statut}            { return symbol(CodesLexicaux.STATUT, yytext()); }
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 
