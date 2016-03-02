@@ -1,0 +1,5 @@
+classe Essai
+	// La seule et unique classe de Plic1
+	publique entier a ;
+	
+fin
