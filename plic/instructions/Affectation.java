@@ -28,6 +28,13 @@ public class Affectation extends ArbreAbstrait{
 		}
 	}
 	
+	@Override
+	public String toString(){
+		return "Affectation de "+idf+" à la valeur "+e.toString();		
+	}
+
+	
+	@Override
 	public String toMips() throws PasDeDeclarationException{
 		 StringBuilder affectation = new StringBuilder();
 		 affectation.append("\n" + e.toMips() + "\n");

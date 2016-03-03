@@ -10,7 +10,7 @@ import plic.instructions.*;
 
 import java_cup.runtime.*;
 
-action code {: 
+action code {: private BlocDInstructions arbre = new BlocDInstructions() ;
              :} ;
 
 parser code {:
@@ -76,8 +76,8 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE;
-non terminal String DECLARATION, LDECLARATION, DECL_CHAMP, LIDF, DECL_CONST, INSTRUCTION, ECRIRE, LINSTRUCTION;
+non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION, INSTRUCTION,  DECL_CHAMP, LDECLARATION;
+non terminal String LIDF, ECRIRE, LINSTRUCTION;
 non terminal Affectation AFFECT;
 non terminal Expression EXPR, CSTE;
 
@@ -102,24 +102,39 @@ precedence left NON ;
 start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
-                {: BlocDInstructions arbre = new BlocDInstructions() ;
+                {: 
                    arbre.ajouter(c) ;
-                   RESULT = arbre ;
+                   RESULT = arbre;
                     :};
 
   	        
-CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION FIN ;  
-
-LDECLARATION ::= LDECLARATION DECLARATION
-			 | DECLARATION;		
+CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN {: 
+                   arbre.ajouter(ld) ;       
+                   RESULT = ld ;
+                    :};
+                    
+LDECLARATION ::= LDECLARATION DECLARATION:d {: 
+                   arbre.ajouter(d);
+                   RESULT = d;
+                    :}
+			 | DECLARATION:d {: 			 
+                   arbre.ajouter(d);                   
+                   RESULT = d;
+                    :};		
 				 		
-DECLARATION  ::= DECL_CHAMP POINT_VIRGULE 
-			 | DECL_CONST POINT_VIRGULE;
+DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {: 
+                   arbre.ajouter(dc) ; 
+                   RESULT = dc;
+                    :}
+			 | DECL_CONST:dc POINT_VIRGULE {: 
+                   arbre.ajouter(dc) ;
+                   RESULT = dc;
+                    :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(s, t)); :}
-   		   | STATUT:s TYPE:t IDF:idf LIDF 
-   			   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(s, t));  :};
+			   {: RESULT = new Declaration(idf, idfleft, s, t); :}
+   		   		| STATUT:s TYPE:t IDF:idf LIDF 
+   		  		{: RESULT = new Declaration(idf, idfleft, s, t); :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
 		 {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :}
@@ -134,7 +149,7 @@ LINSTRUCTION ::= LINSTRUCTION INSTRUCTION
 INSTRUCTION ::= AFFECT | ECRIRE;
 
 AFFECT ::= IDF:idf EGALE EXPR:e
-                {: RESULT = new Affectation(idf, e) ; :};
+                {: RESULT = new Affectation(idf, e); :};
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine

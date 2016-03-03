@@ -22,12 +22,12 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     @Override
     public String toString() {
-        return expr.toString() ;
+        return expr.toString();
     }
 
 	@Override
 	public void verifier() throws SemantiqueException {
-		expr.verifier();		
+		expr.verifier();
 	}
 
 	@Override

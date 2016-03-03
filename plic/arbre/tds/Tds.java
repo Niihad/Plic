@@ -2,6 +2,7 @@ package plic.arbre.tds;
 
 import java.util.HashMap;
 
+import plic.arbre.ArbreAbstrait;
 import plic.exceptions.DoubleDeclarationException;
 import plic.exceptions.PasDeDeclarationException;
 
