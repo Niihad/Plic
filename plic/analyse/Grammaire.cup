@@ -11,6 +11,7 @@ import plic.instructions.*;
 import java_cup.runtime.*;
 
 action code {: private BlocDInstructions arbre = new BlocDInstructions() ;
+				private ArrayList<String> ALidf;
              :} ;
 
 parser code {:
@@ -134,12 +135,18 @@ DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {:
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			   {: RESULT = new Declaration(idf, idfleft, s, t); :}
    		   		| STATUT:s TYPE:t IDF:idf LIDF 
-   		  		{: RESULT = new Declaration(idf, idfleft, s, t); :};
+   		  		{:	for (String idfListe: ALidf){
+   		  				arbre.ajouter(new Declaration(idfListe, idfleft, s, t));
+   		  			}
+   		  			RESULT = new Declaration(idf, idfleft, s, t); System.out.println("3"+idf); :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
-		 {:// Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :}
+		 {:	System.out.println("2"+idf);
+			ALidf.add(idf); :}
 	 | VIRGULE IDF:idf
-	   {: //Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :};
+	   {: 	System.out.println("1"+idf);
+	   		ALidf = new ArrayList<String>();
+	   		ALidf.add(idf); :};
 
 DECL_CONST ::= AFFECT:a
 			{: arbre.ajouter(a);

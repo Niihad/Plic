@@ -1,4 +1,5 @@
 classe Essai
-	publique entier a, c;	
-	publique entier b;
+	privee reel b;
+	privee reel b;
+	b = 10;
 fin

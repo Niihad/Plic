@@ -31,7 +31,8 @@ public class Tds {
 
 	public void ajouterChamp(Entree entree, Symbole s) throws DoubleDeclarationException{
 		// si la variable est deja declarée lance une exception 
-		if (tds.containsKey(entree.getEntree())){
+
+		if (tds.containsKey(entree)){
 			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré", entree.getLigne());
 		}else{ // sinon ajoute la variable da ns la hashMap
 			tds.put(entree, s);
@@ -45,18 +46,19 @@ public class Tds {
 				break;
 			}			
 		}
+		System.out.println(tds.toString());
 	}	
 	
 	public Symbole identifier(Entree entree) throws PasDeDeclarationException{
-		Symbole s = tds.get(entree.getEntree());
+		Symbole s = tds.get(entree);
 		if(s==null){
 			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaré !", entree.getLigne());
 		}
-		return tds.get(entree.getEntree());
+		return tds.get(entree);
 	}
 	
 	public int getDeplacement(Entree entree) throws PasDeDeclarationException{
-		Symbole s = tds.get(entree.getEntree());
+		Symbole s = tds.get(entree);
 		this.identifier(entree);
 		return s.getDepl();
 	}
