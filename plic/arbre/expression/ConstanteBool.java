@@ -2,12 +2,6 @@ package plic.arbre.expression;
 
 import plic.exceptions.AnalyseException;
 
-/**
- * 3 déc. 2015
- *
- * @author brigitte wrobel-dautcourt
- */
-
 public class ConstanteBool extends Constante {
     
     public ConstanteBool(String texte, int nLigne) {
