@@ -9,7 +9,7 @@ public class Symbole {
     public Symbole(String statut, String type) {
     	this.statut = statut;
     	this.type = type;
-    	System.out.println(statut +" "+type);
+    	//System.out.println(statut +" "+type);
     }
  
     public String getStatut() {

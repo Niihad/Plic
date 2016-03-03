@@ -76,8 +76,8 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION, INSTRUCTION,  DECL_CHAMP, LDECLARATION;
-non terminal String LIDF, ECRIRE, LINSTRUCTION;
+non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, ECRIRE;
+non terminal String LIDF;
 non terminal Affectation AFFECT;
 non terminal Expression EXPR, CSTE;
 
@@ -141,12 +141,12 @@ LIDF ::= VIRGULE IDF:idf LIDF
 	 | VIRGULE IDF:idf
 	   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :};
 
-DECL_CONST ::= LINSTRUCTION;
-           
-LINSTRUCTION ::= LINSTRUCTION INSTRUCTION
-             |  INSTRUCTION;
-
-INSTRUCTION ::= AFFECT | ECRIRE;
+DECL_CONST ::= AFFECT:a
+			{: arbre.ajouter(a);
+				RESULT = a; :}
+			 | ECRIRE:e
+			{: arbre.ajouter(e);
+				RESULT = e; :};
 
 AFFECT ::= IDF:idf EGALE EXPR:e
                 {: RESULT = new Affectation(idf, e); :};

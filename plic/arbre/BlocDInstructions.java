@@ -1,5 +1,7 @@
 package plic.arbre;
 
+import java.util.ArrayList;
+
 import plic.exceptions.SemantiqueException;
 
 /**

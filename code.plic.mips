@@ -1,0 +1,12 @@
+# zone de reservation de memoire
+
+	# initialise s7 avec sp 
+	la $s7,($sp) 
+
+# zone programme
+
+
+end :
+	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0
+	li $v0, 10	# retour au système
+	syscall

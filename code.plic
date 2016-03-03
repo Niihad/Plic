@@ -1,3 +1,6 @@
 classe Essai
-	b = 10;
+	publique entier a;
+	publique entier b;
+	publique entier c;
+	publique entier d;
 fin
