@@ -8,14 +8,21 @@ package plic.arbre.expression;
 
 public class Plus extends BinaireArithmetique {
 
-    public Plus(Expression gauche, Expression droite) {
+    public Plus(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
+        this.ligne = nbLigne;
+
     }
     
     @Override
     public String operateur() {
         return " + " ;
     }
+    
+    @Override
+	public int valeur() {
+		return this.gauche.valeur() + this.droite.valeur();
+	}    
 
 	@Override
 	public String toMips() {

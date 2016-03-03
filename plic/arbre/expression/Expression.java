@@ -16,7 +16,9 @@ public abstract class Expression extends ArbreAbstrait {
 	
     protected Expression() {
         super() ;
-    }	
+    }
+    
+    public abstract int valeur();
 	
 	public String getType(){
 		return type;

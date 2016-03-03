@@ -123,15 +123,14 @@ DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {:
                   :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			    {: RESULT = new Declaration(idf, idfleft, s, t); :}
+			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
    		   	| STATUT:s TYPE:t IDF:idf LIDF 
-   		  		{: for (String idfListe: ALidf){
-   		  				arbre.ajouter(new Declaration(idfListe, idfleft, s, t));
-   		  			}
-   		  		RESULT = new Declaration(idf, idfleft, s, t); 
+   		  		{: for (String idfListe: ALidf)
+   		  				arbre.ajouter(new Declaration(idfListe, idfleft+1, s, t));
+   		  			RESULT = new Declaration(idf, idfleft+1, s, t); 
    		  		:}
    		  	| STATUT:s TYPE:t IDF:idf EGALE EXPR:e
-			    {: RESULT = new DeclarationAffectation(idf, s, t, e, idfleft); :};
+			    {: RESULT = new DeclarationAffectation(idf, s, t, e, idfleft+1); :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
 		 {:	ALidf.add(idf); :}
@@ -145,7 +144,7 @@ DECL_CONST ::= AFFECT:a
 			{: RESULT = e; :};
 
 AFFECT ::= IDF:idf EGALE EXPR:e
-                {: RESULT = new Affectation(idf, e, idfleft); :};
+                {: RESULT = new Affectation(idf, e, idfleft+1); :};
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
@@ -155,40 +154,40 @@ ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
-                {: RESULT = new Plus(g, d) ; :}
+                {: RESULT = new Plus(g, d,gleft+1) ; :}
         | 
                 EXPR:g  MOINS  EXPR:d
-                {: RESULT = new Moins(g, d); :}
+                {: RESULT = new Moins(g, d,gleft+1); :}
         |                
                 EXPR:g  MULT  EXPR:d
-                {: RESULT = new Mult(g, d); :}
+                {: RESULT = new Mult(g, d,gleft+1); :}
         |                
                 EXPR:g  DIV  EXPR:d
-                {: RESULT = new Div(g, d); :}
+                {: RESULT = new Div(g, d,gleft+1); :}
         |       
                 EXPR:g  INF  EXPR:d
-                {: RESULT = new Inferieur(g, d); :}
+                {: RESULT = new Inferieur(g, d,gleft+1); :}
         |       
                 EXPR:g  SUP  EXPR:d
-                {: RESULT = new Superieur(g, d); :}
+                {: RESULT = new Superieur(g, d,gleft+1); :}
         |              
                 EXPR:g  EGALEGAL  EXPR:d
-                {: RESULT = new Egal(g, d); :}
+                {: RESULT = new Egal(g, d,gleft+1); :}
         |       
                 EXPR:g  DIFF  EXPR:d
-                {: RESULT = new Different(g, d); :}
+                {: RESULT = new Different(g, d,gleft+1); :}
         |                      
                 MOINS  EXPR:e  
-                {: RESULT = new MoinsUnaire(e); :}
+                {: RESULT = new MoinsUnaire(e,eleft+1); :}
         |      
                 EXPR:g  ET  EXPR:d
-                {: RESULT = new EtLogique(g, d); :}
+                {: RESULT = new EtLogique(g, d,gleft+1); :}
         |      
                 EXPR:g  OU  EXPR:d
-                {: RESULT = new OuLogique(g, d); :}
+                {: RESULT = new OuLogique(g, d,gleft+1); :}
         |      
                 NON EXPR:e
-                {: RESULT = new NonLogique(e); :}
+                {: RESULT = new NonLogique(e,eleft+1); :}
         |
                 CSTE:c
                 {: RESULT = c ; :}
@@ -197,11 +196,11 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = e ; :}
         |
         		IDF:idf
-        		{: RESULT = new ConstanteVariable(idf, idfleft); :}
+        		{: RESULT = new ConstanteVariable(idf, idfleft+1); :}
                 ;
 
 CSTE    ::=     CONSTANTEINT:e 
-                {: RESULT = new ConstanteEntiere(e, eleft) ; :}
+                {: RESULT = new ConstanteEntiere(e, eleft+1) ; :}
         |       CONSTANTEBOOL:e 
-                {: RESULT = new ConstanteBool(e, eleft) ; :}
+                {: RESULT = new ConstanteBool(e, eleft+1) ; :}
                 ;

@@ -20,6 +20,7 @@ public class Affectation extends ArbreAbstrait{
 		this.idf = idf;
 		this.e = e;
 		this.nbLigne = nbLigne;
+		Tds.getInstance().identifier(new Entree(idf)).setValeur(e.valeur());
 	}
 	
 	public void verifier() throws SemantiqueException {

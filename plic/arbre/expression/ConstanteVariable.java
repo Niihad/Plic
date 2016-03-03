@@ -14,6 +14,10 @@ public class ConstanteVariable extends Constante {
 		this.verifier();	
 	}
 	
+	public int valeur(){
+		return s.getValeur();
+	}
+	
 	@Override
 	public void verifier() throws AnalyseException {
 		this.s = Tds.getInstance().identifier(new Entree(this.cste));	

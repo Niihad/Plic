@@ -8,15 +8,21 @@ package plic.arbre.expression;
 
 public class Moins extends BinaireArithmetique {
 
-    public Moins(Expression gauche, Expression droite) {
+    public Moins(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
+        this.ligne = nbLigne;
+        
     }
 
     @Override
     public String operateur() {
         return " - ";
     }
-
+    
+    public int valeur(){
+    	return gauche.valeur() - droite.valeur();
+    }
+    
 	@Override
 	public String toMips() {
 		String soustraction = "";

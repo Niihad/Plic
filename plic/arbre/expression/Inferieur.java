@@ -8,14 +8,20 @@ package plic.arbre.expression;
 
 public class Inferieur extends Comparaison {
 
-    public Inferieur(Expression gauche, Expression droite) {
+    public Inferieur(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
+        this.ligne = i;
     }
 
     @Override
     public String operateur() {
         return " < ";
     }
+    
+    public int valeur() {
+		boolean res = gauche.valeur() < droite.valeur();
+		return (res == true) ? 1 : 0;
+	}   
 
 	@Override
 	public String toMips() {

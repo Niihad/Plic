@@ -5,8 +5,17 @@ public class Symbole {
 	private String statut;
 	private String type;
 	private int depl;
+	private int valeur;
     
-    public Symbole(String statut, String type) {
+    public int getValeur() {
+		return valeur;
+	}
+
+	public void setValeur(int valeur) {
+		this.valeur = valeur;
+	}
+
+	public Symbole(String statut, String type) {
     	this.statut = statut;
     	this.type = type;
     	//System.out.println(statut +" "+type);

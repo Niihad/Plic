@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class OuLogique extends BinaireLogique {
 
-    public OuLogique(Expression gauche, Expression droite) {
+    public OuLogique(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
+        this.ligne = i;
     }
     
     @Override
@@ -30,6 +31,11 @@ public class OuLogique extends BinaireLogique {
 	           "	sw $v0,($sp)\n"                    +
 	           "	add $sp,$sp,-4\n";
 		return ou;	
+	}
+	
+	@Override
+	public int valeur() {
+		return (gauche.valeur() + droite.valeur() > 0)  ? 1 : 0;
 	}
 
 }

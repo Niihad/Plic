@@ -11,8 +11,9 @@ import plic.exceptions.SemantiqueException;
 
 public class MoinsUnaire extends Unaire {
     
-    public MoinsUnaire(Expression expr) {
+    public MoinsUnaire(Expression expr, int i) {
         super(expr);
+        this.ligne = i;
     }
 
     public void verifier() throws AnalyseException{    	
@@ -22,6 +23,10 @@ public class MoinsUnaire extends Unaire {
     	}else{
     		throw new SemantiqueException("Mauvais types, entier attendu",expression.getLigne());
     	}
+    }
+    
+    public int valeur(){
+    	return -expression.valeur();
     }
     
     @Override

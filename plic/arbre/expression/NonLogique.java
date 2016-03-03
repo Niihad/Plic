@@ -11,8 +11,9 @@ import plic.exceptions.SemantiqueException;
 
 public class NonLogique extends Unaire {
     
-    public NonLogique(Expression expr) {
+    public NonLogique(Expression expr, int i) {
         super(expr);
+        this.ligne = i;
     }
     
     public void verifier() throws AnalyseException{    	
@@ -43,4 +44,9 @@ public class NonLogique extends Unaire {
 	return non;
 	}
 
+	@Override
+	public int valeur() {
+		return 1-expression.valeur();
+	}
+	
 }

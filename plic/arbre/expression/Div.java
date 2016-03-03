@@ -1,5 +1,8 @@
 package plic.arbre.expression;
 
+import plic.exceptions.DivisionParZeroException;
+import plic.exceptions.ExecutionException;
+
 /**
  * 3 déc. 2015
  *
@@ -8,8 +11,9 @@ package plic.arbre.expression;
 
 public class Div extends BinaireArithmetique {
 
-    public Div(Expression gauche, Expression droite) {
+    public Div(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
+        this.setLigne(nbLigne);
     }
 
     @Override
@@ -17,6 +21,15 @@ public class Div extends BinaireArithmetique {
         return " / ";
     }
 
+    public int valeur() throws ExecutionException {
+    	if (droite.valeur() != 0){
+    		return  (gauche.valeur() / droite.valeur());
+    	}
+    	else
+    		throw new DivisionParZeroException("Erreur: Division par zero", ligne);
+    		
+	}  
+    
 	@Override
 	public String toMips() {
 		String division ="";
