@@ -10,8 +10,8 @@ import plic.instructions.*;
 
 import java_cup.runtime.*;
 
-action code {: private BlocDInstructions arbre = new BlocDInstructions() ;
-				private ArrayList<String> ALidf;
+action code {:  BlocDInstructions arbre = new BlocDInstructions() ;
+				ArrayList<String> ALidf;
              :} ;
 
 parser code {:
@@ -104,56 +104,43 @@ start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
                 {: 
-                   //arbre.ajouter(c) ;
                    RESULT = arbre;
-                    :};
+                :};
 
   	        
-CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN {: 
-                   //arbre.ajouter(ld) ;       
-                   RESULT = ld ;
-                    :};
+CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
+                    | CLASS:c IDF:nomClasse FIN ;
                     
-LDECLARATION ::= LDECLARATION DECLARATION:d {: 
-                   //arbre.ajouter(d);
-                   RESULT = d;
-                    :}
-			 | DECLARATION:d {: 			 
-                   //arbre.ajouter(d);                   
-                   RESULT = d;
-                    :};		
+LDECLARATION ::= LDECLARATION DECLARATION:d
+			 | DECLARATION:d ;		
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {: 
-                   arbre.ajouter(dc) ; 
-                   RESULT = dc;
-                    :}
-			 | DECL_CONST:dc POINT_VIRGULE {: 
-                   arbre.ajouter(dc) ;
-                   RESULT = dc;
-                    :};
+                 arbre.ajouter(dc) ; 
+                 :}
+                 
+			 	| DECL_CONST:dc POINT_VIRGULE {: 
+                  arbre.ajouter(dc) ;
+                  :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			   {: RESULT = new Declaration(idf, idfleft, s, t); :}
+			    {: RESULT = new Declaration(idf, idfleft, s, t); :}
    		   		| STATUT:s TYPE:t IDF:idf LIDF 
-   		  		{:	for (String idfListe: ALidf){
+   		  		{: for (String idfListe: ALidf){
    		  				arbre.ajouter(new Declaration(idfListe, idfleft, s, t));
    		  			}
-   		  			RESULT = new Declaration(idf, idfleft, s, t); System.out.println("3"+idf); :};
+   		  		RESULT = new Declaration(idf, idfleft, s, t); 
+   		  		:};
 
 LIDF ::= VIRGULE IDF:idf LIDF
-		 {:	System.out.println("2"+idf);
-			ALidf.add(idf); :}
+		 {:	ALidf.add(idf); :}
 	 | VIRGULE IDF:idf
-	   {: 	System.out.println("1"+idf);
-	   		ALidf = new ArrayList<String>();
+	   {:	ALidf = new ArrayList<String>();
 	   		ALidf.add(idf); :};
 
 DECL_CONST ::= AFFECT:a
-			{: arbre.ajouter(a);
-				RESULT = a; :}
+			{: RESULT = a; :}
 			 | ECRIRE:e
-			{: arbre.ajouter(e);
-				RESULT = e; :};
+			{: RESULT = e; :};
 
 AFFECT ::= IDF:idf EGALE EXPR:e
                 {: RESULT = new Affectation(idf, e); :};

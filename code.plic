@@ -1,5 +1,6 @@
 classe Essai
-	privee reel b;
-	privee reel b;
-	b = 10;
+	privee entier b, c, d, e;
+	
+	b = 12;
+	c = 4;
 fin

@@ -25,9 +25,9 @@ public class Tds {
 		return tds;
 	}
 
-	public void setTds(HashMap<Entree, Symbole> tds) {
+	/*public void setTds(HashMap<Entree, Symbole> tds) {
 		this.tds = tds;
-	}
+	}*/
 
 	public void ajouterChamp(Entree entree, Symbole s) throws DoubleDeclarationException{
 		// si la variable est deja declarée lance une exception 
@@ -46,7 +46,6 @@ public class Tds {
 				break;
 			}			
 		}
-		System.out.println(tds.toString());
 	}	
 	
 	public Symbole identifier(Entree entree) throws PasDeDeclarationException{

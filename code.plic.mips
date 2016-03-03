@@ -1,0 +1,35 @@
+# zone de reservation de memoire
+
+	# initialise s7 avec sp 
+	la $s7,($sp) 
+
+# zone programme
+
+
+
+
+
+
+	# Range 12 dans $v0 et l'empile
+	li $v0, 12
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-12($t7)
+
+
+	# Range 4 dans $v0 et l'empile
+	li $v0, 4
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-8($t7)
+
+end :
+	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0
+	li $v0, 10	# retour au système
+	syscall

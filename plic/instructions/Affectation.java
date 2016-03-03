@@ -24,7 +24,7 @@ public class Affectation extends ArbreAbstrait{
 		Symbole s = Tds.getInstance().identifier(new Entree(idf));
 		e.verifier();
 		if(!s.getType().equals(e.getType())){ // A REFAIRE?
-			throw new MauvaisTypeException("Type non conforme, renseigné:"+Tds.getInstance().identifier(new Entree(idf)).getType()+" attendu :"+ e.getType(),e.getLigne());
+			throw new MauvaisTypeException("Type non conforme, renseigné:"+Tds.getInstance().identifier(new Entree(idf)).getType()+", attendu :"+ e.getType(),e.getLigne());
 		}
 	}
 	
