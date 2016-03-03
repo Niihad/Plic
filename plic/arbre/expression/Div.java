@@ -13,7 +13,7 @@ public class Div extends BinaireArithmetique {
 
     public Div(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
-        this.setLigne(nbLigne);
+        this.ligne = nbLigne;
     }
 
     @Override

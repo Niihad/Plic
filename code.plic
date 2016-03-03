@@ -3,8 +3,8 @@ classe Essai
 	publique entier t;
 	publique bool s;
 	
-	s = vrai ou 5;
-	e = 1;
+	s = faux;
+	e = 1 et s;
 	d = 2;
 	c = 3;
 	b = 3;

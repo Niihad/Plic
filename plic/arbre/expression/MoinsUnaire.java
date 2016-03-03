@@ -21,7 +21,7 @@ public class MoinsUnaire extends Unaire {
     	if (expression.getType() == "entier"){
     		this.setType("entier");
     	}else{
-    		throw new SemantiqueException("Mauvais types, entier attendu",expression.getLigne());
+    		throw new SemantiqueException("Mauvais types, entier attendu",ligne);
     	}
     }
     

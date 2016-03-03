@@ -34,7 +34,7 @@ public class EtLogique extends BinaireLogique {
 	
 	@Override
 	public int valeur() {
-		return (gauche.valeur() + droite.valeur() >= 1) ? 1 : 0;
+		return gauche.valeur() * droite.valeur();
 	}
 
 }
