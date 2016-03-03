@@ -19,8 +19,8 @@ public abstract class BinaireArithmetique extends Binaire {
     	
     	gauche.verifier();
     	droite.verifier();
-    	if (gauche.getType() == droite.getType() && gauche.getType() == "int"){
-    		this.setType("int");
+    	if (gauche.getType() == droite.getType() && gauche.getType() == "entier"){
+    		this.setType("entier");
     	}
     	else{
     		throw new SemantiqueException("Mauvais types, entier attendu", this.getLigne());

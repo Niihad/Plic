@@ -3,13 +3,18 @@ package plic.arbre.expression;
 import plic.arbre.tds.Entree;
 import plic.arbre.tds.Tds;
 import plic.exceptions.AnalyseException;
+import plic.exceptions.SemantiqueException;
 
 public class ConstanteVariable extends Constante {
 
-	protected ConstanteVariable(String texte, int nLigne) {
+	public ConstanteVariable(String texte, int nLigne) throws SemantiqueException {
 		super(texte, nLigne);
-		if (Tds.getInstance().identifier)
-        this.type = Tds.getInstance().identifier(new Entree(texte)).getType();		
+		if (Tds.getInstance().identifier(new Entree(texte)) != null){
+			System.out.println("oui");
+	        this.type = Tds.getInstance().identifier(new Entree(texte)).getType();	
+		}else{
+			throw new SemantiqueException("Mauvais type lors de l'affectation", nLigne);
+		}
 	}
 
 	@Override

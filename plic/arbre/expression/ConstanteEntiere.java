@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseException;
+
 /**
  * 3 déc. 2015
  *
@@ -21,6 +23,12 @@ public class ConstanteEntiere extends Constante {
 						  "	sw $v0,($sp) \n" +
 						  "	add $sp ,$sp,-4 \n");
 		return entier.toString();
+	}
+
+	@Override
+	public void verifier() throws AnalyseException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
