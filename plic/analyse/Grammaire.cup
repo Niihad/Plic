@@ -39,7 +39,7 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ECRIR), "ecrire") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.STATUT), "publique | privee") ;
-        lesTerminaux.put(new Integer(CodesLexicaux.TYPE), "entier") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.TYPE), "entier | bool") ;
 
         StringBuffer m = new StringBuffer() ;
 
