@@ -23,6 +23,7 @@ public abstract class BinaireArithmetique extends Binaire {
     		this.setType("entier");
     	}
     	else{
+    		
     		throw new SemantiqueException("Mauvais types, entier attendu", this.getLigne());
     	}
     }    

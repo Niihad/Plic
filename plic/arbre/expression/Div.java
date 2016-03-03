@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class Div extends BinaireArithmetique {
 
-    public Div(Expression gauche, Expression droite) {
+    public Div(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
+        this.setLigne(nbLigne);
     }
 
     @Override

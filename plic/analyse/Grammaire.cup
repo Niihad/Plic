@@ -123,12 +123,12 @@ DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {:
                   :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
-			    {: RESULT = new Declaration(idf, idfleft, s, t); :}
+			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
    		   		| STATUT:s TYPE:t IDF:idf LIDF 
    		  		{: for (String idfListe: ALidf){
-   		  				arbre.ajouter(new Declaration(idfListe, idfleft, s, t));
+   		  				arbre.ajouter(new Declaration(idfListe, idfleft+1, s, t));
    		  			}
-   		  		RESULT = new Declaration(idf, idfleft, s, t); 
+   		  		RESULT = new Declaration(idf, idfleft+1, s, t); 
    		  		:};
 
 LIDF ::= VIRGULE IDF:idf LIDF
@@ -143,26 +143,26 @@ DECL_CONST ::= AFFECT:a
 			{: RESULT = e; :};
 
 AFFECT ::= IDF:idf EGALE EXPR:e
-                {: RESULT = new Affectation(idf, e, idfleft); :};
+                {: RESULT = new Affectation(idf, e, idfleft+1); :};
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 		   {:  RESULT = new EcrireChaine(chaine); :}
    	   | ECRIR EXPR:e;
-		   {:  RESULT = new EcrireExpression(e)); :};
+		   //{:  RESULT = new EcrireExpression(e)); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
-                {: RESULT = new Plus(g, d) ; :}
+                {: RESULT = new Plus(g, d,gleft+1) ; :}
         | 
                 EXPR:g  MOINS  EXPR:d
-                {: RESULT = new Moins(g, d); :}
+                {: RESULT = new Moins(g, d,gleft+1); :}
         |                
                 EXPR:g  MULT  EXPR:d
-                {: RESULT = new Mult(g, d); :}
+                {: RESULT = new Mult(g, d,gleft+1); :}
         |                
                 EXPR:g  DIV  EXPR:d
-                {: RESULT = new Div(g, d); :}
+                {: RESULT = new Div(g, d,gleft+1); :}
         |       
                 EXPR:g  INF  EXPR:d
                 {: RESULT = new Inferieur(g, d); :}

@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class Mult extends BinaireArithmetique {
 
-    public Mult(Expression gauche, Expression droite) {
+    public Mult(Expression gauche, Expression droite,int nbLigne ) {
         super(gauche, droite);
+        this.setLigne(nbLigne);
     }
   
     @Override

@@ -8,8 +8,10 @@ package plic.arbre.expression;
 
 public class Moins extends BinaireArithmetique {
 
-    public Moins(Expression gauche, Expression droite) {
+    public Moins(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
+        this.setLigne(nbLigne);
+        
     }
 
     @Override
