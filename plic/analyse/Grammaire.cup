@@ -124,12 +124,14 @@ DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {:
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft, s, t); :}
-   		   		| STATUT:s TYPE:t IDF:idf LIDF 
+   		   	| STATUT:s TYPE:t IDF:idf LIDF 
    		  		{: for (String idfListe: ALidf){
    		  				arbre.ajouter(new Declaration(idfListe, idfleft, s, t));
    		  			}
    		  		RESULT = new Declaration(idf, idfleft, s, t); 
-   		  		:};
+   		  		:}
+   		  	| STATUT:s TYPE:t IDF:idf EGALE EXPR:e
+			    {: RESULT = new DeclarationAffectation(idf, s, t, e, idfleft); :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
 		 {:	ALidf.add(idf); :}
@@ -149,7 +151,7 @@ AFFECT ::= IDF:idf EGALE EXPR:e
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 		   {:  RESULT = new EcrireChaine(chaine); :}
    	   | ECRIR EXPR:e
-		   {:  RESULT = new EcrireExpression(e)); :};
+		   {:  RESULT = new EcrireExpression(e); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

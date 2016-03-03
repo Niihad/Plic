@@ -32,7 +32,7 @@ idf = [a-zA-Z][a-zA-Z0-9]*
 csteE = [0-9]+
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
-type = "entier" | "reel"
+type = "entier" | "reel" | "bool"
 chaine = \"([^[\"]]|([\"]{2}))*\"
 
 finDeLigne = \r|\n
