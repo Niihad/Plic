@@ -1,7 +1,6 @@
 classe Essai
 	privee entier b, c, d, e;
+	publique entier t;
 	
-	b = 12;
-	c = 4;
-	c = t;
+	b = c*5+d-8;
 fin

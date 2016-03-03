@@ -19,7 +19,7 @@ public abstract class BinaireArithmetique extends Binaire {
     	
     	gauche.verifier();
     	droite.verifier();
-    	if (gauche.getType() == droite.getType() && gauche.getType() == "entier"){
+    	if (gauche.getType().equals(droite.getType()) && gauche.getType().equals("entier")){
     		this.setType("entier");
     	}
     	else{

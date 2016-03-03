@@ -19,7 +19,7 @@ public void verifier() throws AnalyseException{
     	
     	gauche.verifier();
     	droite.verifier();
-    	if (gauche.getType() == droite.getType() && gauche.getType() == "bool"){
+    	if (gauche.getType().equals(droite.getType()) && gauche.getType().equals("bool")){
     		this.setType("bool");
     	}
     	else{

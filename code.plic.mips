@@ -1,43 +1,66 @@
 # zone de reservation de memoire
 
 	# initialise s7 avec sp 
-	la $s7,($sp) 
+	move $s7,$sp 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
 
 # zone programme
 
-
-
-
-
-
-	# Range 12 dans $v0 et l'empile
-	li $v0, 12
+	# Range valeur de c dans $v0 et l'empile
+	lw $v0,-8($s7)
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-12($t7)
-
-
-	# Range 4 dans $v0 et l'empile
-	li $v0, 4
+	# Range 5 dans $v0 et l'empile
+	li $v0, 5
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-8($t7)
+	# multiplie (c * 5)
+	add $sp,$sp,4
+	lw $v0,($sp)
+	add $sp,$sp,4
+	lw $t8,($sp)
+	mult $v0,$t8
+	mflo $v0
+	sw $v0,($sp)
+	add $sp,$sp,-4
 
-
-	# Range t dans $v0 et l'empile
-	li $v0, t
+	# Range valeur de d dans $v0 et l'empile
+	lw $v0,-4($s7)
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
+	# additionne ((c * 5) + d) et empile
+	add $sp,$sp,4
+	lw $v0,($sp)
+	add $sp,$sp,4
+	lw $t8,($sp)
+	add $v0,$v0,$t8
+	sw $v0,($sp)
+	add $sp,$sp,-4
+
+	# Range 8 dans $v0 et l'empile
+	li $v0, 8
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# soustrait (((c * 5) + d) - 8)
+	add $sp,$sp,4
+	lw $v0,($sp)
+	add $sp,$sp,4
+	lw $t8,($sp)
+	sub $v0,$t8,$v0
+	sw $v0,($sp)
+	add $sp,$sp,-4
+
 	add $sp,$sp,4 
 	lw $v0,($sp) 
-	sw $v0,-8($t7)
+	sw $v0,-12($s7)
 
 end :
 	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0

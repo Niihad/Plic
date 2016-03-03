@@ -18,7 +18,7 @@ public abstract class Comparaison extends Binaire {
     public void verifier() throws AnalyseException{    	
     	gauche.verifier();
     	droite.verifier();
-    	if (gauche.getType() == droite.getType()){
+    	if (gauche.getType().equals(droite.getType())){
     		if(gauche.getType() == "bool"){
     			if (this.operateur() == " > " || this.operateur() == " < ")
     				throw new SemantiqueException("La comparaison inf/sup attend un entier", this.getLigne());
