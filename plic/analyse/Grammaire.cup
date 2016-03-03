@@ -103,22 +103,22 @@ start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
                 {: 
-                   arbre.ajouter(c) ;
+                   //arbre.ajouter(c) ;
                    RESULT = arbre;
                     :};
 
   	        
 CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN {: 
-                   arbre.ajouter(ld) ;       
+                   //arbre.ajouter(ld) ;       
                    RESULT = ld ;
                     :};
                     
 LDECLARATION ::= LDECLARATION DECLARATION:d {: 
-                   arbre.ajouter(d);
+                   //arbre.ajouter(d);
                    RESULT = d;
                     :}
 			 | DECLARATION:d {: 			 
-                   arbre.ajouter(d);                   
+                   //arbre.ajouter(d);                   
                    RESULT = d;
                     :};		
 				 		
@@ -137,9 +137,9 @@ DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
    		  		{: RESULT = new Declaration(idf, idfleft, s, t); :};
 
 LIDF ::= VIRGULE IDF:idf LIDF
-		 {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :}
+		 {:// Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :}
 	 | VIRGULE IDF:idf
-	   {: Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :};
+	   {: //Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), new Symbole(Tds.getInstance().getDernierStatut(), Tds.getInstance().getDernierType())); :};
 
 DECL_CONST ::= AFFECT:a
 			{: arbre.ajouter(a);

@@ -10,8 +10,6 @@ public class Tds {
 	
 	private HashMap<Entree, Symbole> tds;
 	private int deplacement;
-	private String dernierStatut = null;
-	private String dernierType = null;
 	
 	private Tds(){
 		tds =  new HashMap<Entree, Symbole>();
@@ -37,8 +35,6 @@ public class Tds {
 			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré", entree.getLigne());
 		}else{ // sinon ajoute la variable da ns la hashMap
 			tds.put(entree, s);
-			dernierStatut = s.getStatut();
-			dernierType = s.getType();
 			s.setDepl(deplacement);
 			switch (s.getType()){
 			case "entier":
@@ -63,13 +59,5 @@ public class Tds {
 		Symbole s = tds.get(entree.getEntree());
 		this.identifier(entree);
 		return s.getDepl();
-	}
-
-	public String getDernierStatut() {
-		return dernierStatut;
-	}
-
-	public String getDernierType() {
-		return dernierType;
 	}
 }

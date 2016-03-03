@@ -1,6 +1,4 @@
 classe Essai
-	publique entier a;
+	publique entier a, c;	
 	publique entier b;
-	publique entier c;
-	publique entier d;
 fin

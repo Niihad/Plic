@@ -12,24 +12,32 @@ import plic.exceptions.SemantiqueException;
 
 public class BlocDInstructions extends ArbreAbstrait {
     
-    protected ArbreAbstrait expr ;
+    protected ArrayList<ArbreAbstrait> instr ;
     
     public BlocDInstructions() {
         super() ;
+        instr = new ArrayList<ArbreAbstrait>();
     }
     
     public void ajouter(ArbreAbstrait a) {
-        expr = a ;
+        instr.add(a) ;
     }
     
     @Override
     public String toString() {
-        return expr.toString();
+    	String str = "";
+    	for (ArbreAbstrait a : instr){
+    		str+=a.toString();
+    		str+="\n";
+    	}
+    	return str;
     }
 
 	@Override
 	public void verifier() throws SemantiqueException {
-		expr.verifier();
+		for (ArbreAbstrait a : instr){
+    		a.verifier();
+    	}
 	}
 
 	@Override
@@ -39,7 +47,9 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("	# initialise s7 avec sp \n"); 
 		sb.append("	la $s7,($sp) \n");
 		sb.append("\n# zone programme\n\n");
-		sb.append(expr.toMips() +"\n");
+		for (ArbreAbstrait a : instr){
+    		sb.append(a.toMips() + "\n");
+    	}
 		sb.append("end :\n");
 		sb.append("	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0\n");
 		sb.append("	li $v0, 10	# retour au système\n");
