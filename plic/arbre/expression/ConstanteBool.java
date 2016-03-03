@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseException;
+
 /**
  * 3 déc. 2015
  *
@@ -13,7 +15,6 @@ public class ConstanteBool extends Constante {
         this.type = "bool";
     }
 
-	@Override
 	public String toMips() {
 		int tmp = (this.cste.equals("true") ? 1 : 0);
 		
@@ -23,6 +24,9 @@ public class ConstanteBool extends Constante {
 						  "	sw $v0,($sp) \n" +
 						  "	add $sp ,$sp,-4 \n");
 		return bool.toString();	
+	}
+
+	public void verifier() throws AnalyseException {
 	}
 
 }

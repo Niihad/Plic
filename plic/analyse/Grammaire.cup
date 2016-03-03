@@ -195,7 +195,7 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = e ; :}
         |
         		IDF:idf
-        		{: RESULT = new ConstanteVariable(idf, idfleft); ; :}
+        		{: RESULT = new ConstanteVariable(idf, idfleft); :}
                 ;
 
 CSTE    ::=     CONSTANTEINT:e 

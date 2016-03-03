@@ -2,6 +2,7 @@ package plic.arbre;
 
 import java.util.ArrayList;
 
+import plic.arbre.tds.Tds;
 import plic.exceptions.SemantiqueException;
 
 /**
@@ -46,11 +47,14 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("# zone de reservation de memoire\n\n");
 		sb.append("	# initialise s7 avec sp \n"); 
 		sb.append("	la $s7,($sp) \n");
-		sb.append("\n# zone programme\n\n");
+		for(int i=0;i<Tds.getInstance().getTds().size();i++){	
+			sb.append("	add $sp ,$sp,-4 \n");
+		}
+		sb.append("\n# zone programme\n");
 		for (ArbreAbstrait a : instr){
-    		sb.append(a.toMips() + "\n");
+    		sb.append(a.toMips());
     	}
-		sb.append("end :\n");
+		sb.append("\nend :\n");
 		sb.append("	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0\n");
 		sb.append("	li $v0, 10	# retour au système\n");
 		sb.append("	syscall\n");

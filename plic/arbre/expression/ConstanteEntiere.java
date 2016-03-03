@@ -1,10 +1,6 @@
 package plic.arbre.expression;
 
-/**
- * 3 déc. 2015
- *
- * @author brigitte wrobel-dautcourt
- */
+import plic.exceptions.AnalyseException;
 
 public class ConstanteEntiere extends Constante {
     
@@ -21,6 +17,9 @@ public class ConstanteEntiere extends Constante {
 						  "	sw $v0,($sp) \n" +
 						  "	add $sp ,$sp,-4 \n");
 		return entier.toString();
+	}
+
+	public void verifier() throws AnalyseException {
 	}
 
 }

@@ -40,7 +40,7 @@ public class Affectation extends ArbreAbstrait{
 		 affectation.append("\n" + e.toMips() + "\n");
 		 affectation.append("	add $sp,$sp,4 \n" +
 		 					"	lw $v0,($sp) \n" +
-		 					"	sw $v0,"+ Tds.getInstance().getDeplacement(new Entree(idf)) +"($t7)\n");
+		 					"	sw $v0,"+ Tds.getInstance().getDeplacement(new Entree(idf)) +"($s7)\n");
 		 return affectation.toString() ;
 	}
 	
