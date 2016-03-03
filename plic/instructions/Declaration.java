@@ -7,7 +7,6 @@ import plic.arbre.tds.Tds;
 import plic.exceptions.SemantiqueException;
 
 public class Declaration extends ArbreAbstrait {
-
 	
 	private String idf, s, t;
 	
@@ -20,10 +19,7 @@ public class Declaration extends ArbreAbstrait {
 	
 	@Override
 	public void verifier() throws SemantiqueException {
-		// TODO Auto-generated method stub
-		
 	}
-	
 
 	@Override
 	public String toString(){

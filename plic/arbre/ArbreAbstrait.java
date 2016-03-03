@@ -1,5 +1,6 @@
 package plic.arbre;
 
+import plic.arbre.expression.Expression;
 import plic.exceptions.SemantiqueException;
 
 /**
@@ -10,8 +11,14 @@ import plic.exceptions.SemantiqueException;
 
 public abstract class ArbreAbstrait {
     
+	public static int cptEtiquette = 0;
+	
     protected ArbreAbstrait() {
     }
+    
+   	public void incCptEtiquette(){
+   		Expression.cptEtiquette++;
+   	}
 
 	public abstract void verifier() throws SemantiqueException;
 	

@@ -33,7 +33,7 @@ csteE = [0-9]+
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
 type = "entier" | "reel"
-
+chaine = \"([^[\"]]|([\"]{2}))*\"
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
@@ -61,6 +61,7 @@ commentaireSlashSlash = [/][/].*
 "non"               { return symbol(CodesLexicaux.NON); }
 {csteE}      	    { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	    { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+{chaine}      	    { return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }

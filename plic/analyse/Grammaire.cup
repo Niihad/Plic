@@ -147,9 +147,9 @@ AFFECT ::= IDF:idf EGALE EXPR:e
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
-		   {:  new EcrireChaine(chaine);:}
+		   {:  RESULT = new EcrireChaine(chaine); :}
    	   | ECRIR EXPR:e;
-		 //{:  Tds.getInstance().ajouterAction(new EcrireExpression(e)); :};
+		 //{:  RESULT = new EcrireExpression(e)); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

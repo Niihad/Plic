@@ -11,17 +11,12 @@ import plic.exceptions.AnalyseException;
 
 public abstract class Expression extends ArbreAbstrait {
     
-	public static int cptEtiquette = 0;
 	protected String type;
 	protected int ligne;
 	
     protected Expression() {
         super() ;
     }	
-    
-   	public void incCptEtiquette(){
-   		Expression.cptEtiquette++;
-   	}
 	
 	public String getType(){
 		return type;

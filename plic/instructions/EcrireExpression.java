@@ -3,11 +3,11 @@ package plic.instructions;
 import plic.arbre.ArbreAbstrait;
 import plic.exceptions.SemantiqueException;
 
-public class EcrireChaine extends ArbreAbstrait {
+public class EcrireExpression extends ArbreAbstrait {
 
 	private String chaine;
 	
-	public EcrireChaine(String chaine){
+	public EcrireExpression(String chaine){
 		super();
 		this.chaine = convertirCote(chaine);
 	}
