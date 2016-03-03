@@ -1,56 +1,43 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.expression.Expression;
+import plic.exceptions.PasDeDeclarationException;
 import plic.exceptions.SemantiqueException;
 
 public class EcrireExpression extends ArbreAbstrait {
 
-	private String chaine;
+	private Expression expression;
 	
-	public EcrireExpression(String chaine){
+	public EcrireExpression(Expression exp){
 		super();
-		this.chaine = convertirCote(chaine);
-	}
-
-	// Permet de retirer les quotes
-	private String convertirCote(String chaine2) {
-		chaine2 = chaine2.substring(1, chaine2.length()-1);
-		StringBuilder sb = new StringBuilder();
-		boolean first = false;
-		for(int i = 0; i < chaine2.length(); i++){
-			char c = chaine2.charAt(i);
-			if(c == '"'){
-				first = !first;
-				if(!first)
-					sb.append('"');
-			}else{
-				sb.append(c);
-			}
-		}
-		return sb.toString();
+		this.expression = exp;
 	}
 	
 	@Override
 	public void verifier() throws SemantiqueException {
-	}
+	}	
+	
 
 	@Override
-	public String toMips() {
-		StringBuilder ecrire = new StringBuilder(); 
-		ecrire.append("	\n# Ecrirechaine\n");
-		ecrire.append("	.data \n");
-		ecrire.append("	stri"+this.cptEtiquette+": .asciiz \"" + chaine +"\"\n");
-		ecrire.append("	.text \n");
+	public String toMips() throws PasDeDeclarationException {
+		StringBuilder ecrire = new StringBuilder();
+		ecrire.append("	# Ecrire "+expression.toString()+"\n");	
+		ecrire.append(	expression.toMips()+"\n");
+		ecrire.append("	add $sp,$sp,4 \n");
+		ecrire.append("	li $v0, 1 \n");
+		ecrire.append("	lw $a0,($sp) \n");
+		ecrire.append("	syscall\n");
 		ecrire.append("	li $v0, 4 \n");
-		ecrire.append("	la $a0, stri"+ this.cptEtiquette +"\n");
-		ecrire.append("	syscall\n") ;
-		incCptEtiquette();
+		ecrire.append("	la $a0, space\n");
+		ecrire.append("	syscall\n\n") ;
+				
 		return ecrire.toString() ;
 	}
 
 	@Override
 	public String toString() {
-		return "Ecriture de la chaine "+chaine;
+		return "Ecriture de l'expression "+expression;
 	}
 
 }
