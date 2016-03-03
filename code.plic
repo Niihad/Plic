@@ -3,4 +3,5 @@ classe Essai
 	
 	b = 12;
 	c = 4;
+	c = t;
 fin

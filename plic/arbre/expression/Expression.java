@@ -31,8 +31,7 @@ public abstract class Expression extends ArbreAbstrait {
 		this.type = type;
 	}
 
-	public void verifier() throws AnalyseException{		
-	}
+	public abstract void verifier() throws AnalyseException;
 	
 	public int getLigne() {
 		return ligne;

@@ -21,11 +21,6 @@ public abstract class Unaire extends Expression {
 
     public void verifier() throws AnalyseException{    	
     	expression.verifier();
-    	/*if (expression.getType() == "bool" || expression.getType() == "int"){
-    		this.setType(expression.getType() == "bool" ? "bool" : "int");
-    	}else{
-    		throw new SemantiqueException("Mauvais types, "+expression.getType() == "bool" ? "booleen" : "entier" + " attendu");
-    	}*/
     }
     
     @Override

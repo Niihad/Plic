@@ -147,7 +147,7 @@ AFFECT ::= IDF:idf EGALE EXPR:e
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
-		  // {:  Tds.getInstance().ajouterAction(new EcrireChaine(chaine,j)); j++;:}
+		   {:  new EcrireChaine(chaine);:}
    	   | ECRIR EXPR:e;
 		 //{:  Tds.getInstance().ajouterAction(new EcrireExpression(e)); :};
 
@@ -193,6 +193,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
+        |
+        		IDF:idf
+        		{: RESULT = new ConstanteVariable(idf, idfleft); ; :}
                 ;
 
 CSTE    ::=     CONSTANTEINT:e 

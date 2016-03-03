@@ -29,6 +29,16 @@
 	lw $v0,($sp) 
 	sw $v0,-8($t7)
 
+
+	# Range t dans $v0 et l'empile
+	li $v0, t
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-8($t7)
+
 end :
 	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0
 	li $v0, 10	# retour au système

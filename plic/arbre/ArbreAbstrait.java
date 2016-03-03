@@ -15,6 +15,8 @@ public abstract class ArbreAbstrait {
 
 	public abstract void verifier() throws SemantiqueException;
 	
+	public abstract String toString();
+	
 	public abstract String toMips();
     
 }
