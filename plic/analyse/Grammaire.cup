@@ -148,8 +148,8 @@ AFFECT ::= IDF:idf EGALE EXPR:e
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 		   {:  RESULT = new EcrireChaine(chaine); :}
-   	   | ECRIR EXPR:e;
-		   //{:  RESULT = new EcrireExpression(e)); :};
+   	   | ECRIR EXPR:e
+		   {:  RESULT = new EcrireExpression(e); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
