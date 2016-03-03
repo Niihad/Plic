@@ -31,7 +31,6 @@ public class Tds {
 
 	public void ajouterChamp(Entree entree, Symbole s) throws DoubleDeclarationException{
 		// si la variable est deja declarée lance une exception 
-
 		if (tds.containsKey(entree)){
 			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré", entree.getLigne());
 		}else{ // sinon ajoute la variable da ns la hashMap
