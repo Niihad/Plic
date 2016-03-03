@@ -10,7 +10,7 @@ public class Mult extends BinaireArithmetique {
 
     public Mult(Expression gauche, Expression droite,int nbLigne ) {
         super(gauche, droite);
-        this.setLigne(nbLigne);
+        this.ligne = nbLigne;
     }
   
     @Override

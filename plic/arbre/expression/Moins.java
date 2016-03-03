@@ -10,7 +10,7 @@ public class Moins extends BinaireArithmetique {
 
     public Moins(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
-        this.setLigne(nbLigne);
+        this.ligne = nbLigne;
         
     }
 

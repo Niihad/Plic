@@ -37,7 +37,7 @@ public class EcrireExpression extends ArbreAbstrait {
 
 	@Override
 	public String toString() {
-		return "Ecriture de l'expression "+expression;
+		return "Ecriture de l'expression "+expression+" valeur:"+expression.valeur();
 	}
 
 }

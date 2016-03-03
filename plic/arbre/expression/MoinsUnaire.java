@@ -11,8 +11,9 @@ import plic.exceptions.SemantiqueException;
 
 public class MoinsUnaire extends Unaire {
     
-    public MoinsUnaire(Expression expr) {
+    public MoinsUnaire(Expression expr, int i) {
         super(expr);
+        this.ligne = i;
     }
 
     public void verifier() throws AnalyseException{    	

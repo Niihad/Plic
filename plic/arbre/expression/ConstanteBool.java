@@ -9,7 +9,7 @@ public class ConstanteBool extends Constante {
     public ConstanteBool(String texte, int nLigne) {
         super(texte, nLigne) ;
         this.type = "bool";
-        this.valeur = (texte == "vrai") ? 1 : 0;
+        this.valeur = (texte.equals("vrai")) ? 1 : 0;
     }
     
     public int valeur(){

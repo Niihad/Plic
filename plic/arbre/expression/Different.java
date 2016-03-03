@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class Different extends Comparaison {
 
-    public Different(Expression gauche, Expression droite) {
+    public Different(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
+        this.ligne = i;
     }
 
     @Override

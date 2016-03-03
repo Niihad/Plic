@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class EtLogique extends BinaireLogique {
 
-    public EtLogique(Expression gauche, Expression droite) {
+    public EtLogique(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
+        this.ligne = i;
     }
     
     @Override

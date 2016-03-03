@@ -8,8 +8,9 @@ package plic.arbre.expression;
 
 public class OuLogique extends BinaireLogique {
 
-    public OuLogique(Expression gauche, Expression droite) {
+    public OuLogique(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
+        this.ligne = i;
     }
     
     @Override

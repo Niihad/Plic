@@ -10,7 +10,7 @@ public class Plus extends BinaireArithmetique {
 
     public Plus(Expression gauche, Expression droite,int nbLigne) {
         super(gauche, droite);
-        this.setLigne(nbLigne);
+        this.ligne = nbLigne;
 
     }
     
