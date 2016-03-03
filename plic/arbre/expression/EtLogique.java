@@ -30,5 +30,10 @@ public class EtLogique extends BinaireLogique {
 		           "	add $sp,$sp,-4\n";		
 		return et;
 	}
+	
+	@Override
+	public int valeur() {
+		return (gauche.valeur() + droite.valeur() >= 1) ? 1 : 0;
+	}
 
 }

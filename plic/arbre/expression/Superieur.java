@@ -16,6 +16,12 @@ public class Superieur extends Comparaison {
     public String operateur() {
         return " > ";
     }
+    
+    @Override
+	public int valeur() {
+		boolean res = gauche.valeur() > droite.valeur();
+		return (res == true) ? 1 : 0;
+	}    
 
 	@Override
 	public String toMips() {
@@ -42,5 +48,6 @@ public class Superieur extends Comparaison {
 	       	   "	finsi"+cpt+":\n";
 		return superieur;
 	}
-    
+
+
 }

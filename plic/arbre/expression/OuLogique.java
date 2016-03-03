@@ -31,5 +31,10 @@ public class OuLogique extends BinaireLogique {
 	           "	add $sp,$sp,-4\n";
 		return ou;	
 	}
+	
+	@Override
+	public int valeur() {
+		return (gauche.valeur() + droite.valeur() > 0)  ? 1 : 0;
+	}
 
 }

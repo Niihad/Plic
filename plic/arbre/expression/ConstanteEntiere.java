@@ -4,9 +4,16 @@ import plic.exceptions.AnalyseException;
 
 public class ConstanteEntiere extends Constante {
     
+	private int nbr;
+	
     public ConstanteEntiere(String texte, int nLigne) {
         super(texte, nLigne) ;
+        this.nbr = Integer.parseInt(texte);
         this.type = "entier";
+    }
+    
+    public int valeur(){
+    	return nbr;
     }
 
 	@Override

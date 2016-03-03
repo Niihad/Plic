@@ -16,6 +16,11 @@ public class Inferieur extends Comparaison {
     public String operateur() {
         return " < ";
     }
+    
+    public int valeur() {
+		boolean res = gauche.valeur() < droite.valeur();
+		return (res == true) ? 1 : 0;
+	}   
 
 	@Override
 	public String toMips() {

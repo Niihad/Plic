@@ -24,6 +24,10 @@ public class MoinsUnaire extends Unaire {
     	}
     }
     
+    public int valeur(){
+    	return -expression.valeur();
+    }
+    
     @Override
     public String operateur() {
         return "- " ;

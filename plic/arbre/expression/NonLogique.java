@@ -43,4 +43,9 @@ public class NonLogique extends Unaire {
 	return non;
 	}
 
+	@Override
+	public int valeur() {
+		return 1-expression.valeur();
+	}
+	
 }

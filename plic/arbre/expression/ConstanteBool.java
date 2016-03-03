@@ -4,9 +4,16 @@ import plic.exceptions.AnalyseException;
 
 public class ConstanteBool extends Constante {
     
+	private int valeur = 0;
+	
     public ConstanteBool(String texte, int nLigne) {
         super(texte, nLigne) ;
         this.type = "bool";
+        this.valeur = (texte == "vrai") ? 1 : 0;
+    }
+    
+    public int valeur(){
+    	return valeur;
     }
 
 	public String toMips() {

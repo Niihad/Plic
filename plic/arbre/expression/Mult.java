@@ -18,6 +18,10 @@ public class Mult extends BinaireArithmetique {
     	return " * ";
     }
 
+    public int valeur(){
+    	return gauche.valeur() * droite.valeur();
+    }
+    
 	@Override
 	public String toMips() {
 		String multiplication ="";

@@ -18,7 +18,11 @@ public class Moins extends BinaireArithmetique {
     public String operateur() {
         return " - ";
     }
-
+    
+    public int valeur(){
+    	return gauche.valeur() - droite.valeur();
+    }
+    
 	@Override
 	public String toMips() {
 		String soustraction = "";

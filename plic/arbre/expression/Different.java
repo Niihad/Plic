@@ -42,5 +42,10 @@ public class Different extends Comparaison {
 		return egal;
 		
 	}
+
+	@Override
+	public int valeur() {
+		return (gauche.valeur() != droite.valeur()) ? 1 : 0;
+	}
   
 }

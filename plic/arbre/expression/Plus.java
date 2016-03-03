@@ -18,6 +18,11 @@ public class Plus extends BinaireArithmetique {
     public String operateur() {
         return " + " ;
     }
+    
+    @Override
+	public int valeur() {
+		return this.gauche.valeur() + this.droite.valeur();
+	}    
 
 	@Override
 	public String toMips() {
