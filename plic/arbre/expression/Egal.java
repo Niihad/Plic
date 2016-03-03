@@ -12,6 +12,7 @@ public class Egal extends Comparaison {
     public Egal(Expression gauche, Expression droite, int i) {
         super(gauche, droite);
         this.ligne = i;
+        this.type = "bool";
     }
     
     @Override

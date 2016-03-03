@@ -12,6 +12,7 @@ public class EcrireExpression extends ArbreAbstrait {
 	public EcrireExpression(Expression exp){
 		super();
 		this.expression = exp;
+		expression.verifier();
 	}
 	
 	@Override
