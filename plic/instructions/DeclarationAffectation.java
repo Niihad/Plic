@@ -19,7 +19,7 @@ public class DeclarationAffectation extends ArbreAbstrait {
 		this.t = t;
 		this.e = e;
 		Symbole sy = new Symbole(s,t);
-		//sy = e.valeur();
+		sy.setValeur(e.valeur());
 		Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), sy);
 		affectation = new Affectation(idf, e, idfleft);
 	}
