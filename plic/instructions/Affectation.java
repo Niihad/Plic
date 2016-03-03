@@ -20,14 +20,14 @@ public class Affectation extends ArbreAbstrait{
 		this.idf = idf;
 		this.e = e;
 		this.nbLigne = nbLigne;
-		Tds.getInstance().identifier(new Entree(idf)).setValeur(e.valeur());
+		Tds.getInstance().identifier(new Entree(idf),nbLigne).setValeur(e.valeur());
 	}
 	
 	public void verifier() throws SemantiqueException {
-		Symbole s = Tds.getInstance().identifier(new Entree(idf, nbLigne));
+		Symbole s = Tds.getInstance().identifier(new Entree(idf, nbLigne),nbLigne);
 		e.verifier();
 		if(!s.getType().equals(e.getType())){
-			throw new MauvaisTypeException("Type non conforme, renseigné:"+Tds.getInstance().identifier(new Entree(idf)).getType()+", attendu :"+ e.getType(),e.getLigne());
+			throw new MauvaisTypeException("Type non conforme, renseigné:"+Tds.getInstance().identifier(new Entree(idf),nbLigne).getType()+", attendu :"+ e.getType(),e.getLigne());
 		}
 	}
 	

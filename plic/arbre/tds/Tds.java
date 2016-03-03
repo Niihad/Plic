@@ -47,17 +47,17 @@ public class Tds {
 		}
 	}	
 	
-	public Symbole identifier(Entree entree) throws PasDeDeclarationException{
+	public Symbole identifier(Entree entree,int nbligne) throws PasDeDeclarationException{
 		Symbole s = tds.get(entree);
 		if(s==null){
-			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaré !", entree.getLigne());
+			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaré !", nbligne);
 		}
 		return tds.get(entree);
 	}
 	
 	public int getDeplacement(Entree entree) throws PasDeDeclarationException{
 		Symbole s = tds.get(entree);
-		this.identifier(entree);
+		this.identifier(entree,entree.getLigne());
 		return s.getDepl();
 	}
 }

@@ -8,10 +8,12 @@ import plic.exceptions.AnalyseException;
 public class ConstanteVariable extends Constante {
 	
 	private Symbole s;
+	private int nbLigne;
 
 	public ConstanteVariable(String texte, int nLigne) {
 		super(texte, nLigne);
-		this.verifier();	
+		this.verifier();
+		this.nbLigne = nLigne;
 	}
 	
 	public int valeur(){
@@ -20,7 +22,7 @@ public class ConstanteVariable extends Constante {
 	
 	@Override
 	public void verifier() throws AnalyseException {
-		this.s = Tds.getInstance().identifier(new Entree(this.cste));	
+		this.s = Tds.getInstance().identifier(new Entree(this.cste),nbLigne);	
 		type = s.getType();
 	}
 
