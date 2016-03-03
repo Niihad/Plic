@@ -13,7 +13,6 @@ public class Entree {
 	
 	public Entree(String idf) {
 		this.idf = idf;
-		this.ligne = 0;
 	}
 	
 	public void setEntree(String idf) {

@@ -143,7 +143,7 @@ DECL_CONST ::= AFFECT:a
 			{: RESULT = e; :};
 
 AFFECT ::= IDF:idf EGALE EXPR:e
-                {: RESULT = new Affectation(idf, e); :};
+                {: RESULT = new Affectation(idf, e, idfleft); :};
 
 
 ECRIRE ::= ECRIR CONSTANTECHAINE:chaine

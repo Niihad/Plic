@@ -46,9 +46,9 @@ public class BlocDInstructions extends ArbreAbstrait {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# zone de reservation de memoire\n\n");
 		sb.append("	# initialise s7 avec sp \n"); 
-		sb.append("	la $s7,($sp) \n");
-		for(int i=0;i<Tds.getInstance().getTds().size();i++){	
-			sb.append("	add $sp ,$sp,-4 \n");
+		sb.append("	move $s7,$sp \n");
+		for(int i=0;i<Tds.getInstance().getTds().size();i++){
+			sb.append("	addi $sp ,$sp,-4 \n");
 		}
 		sb.append("\n# zone programme\n");
 		for (ArbreAbstrait a : instr){

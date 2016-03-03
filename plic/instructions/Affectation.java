@@ -13,15 +13,17 @@ public class Affectation extends ArbreAbstrait{
 
 	private String idf ;
 	private Expression e ;
+	private int nbLigne;
 	
-	public Affectation(String idf, Expression e){
+	public Affectation(String idf, Expression e, int nbLigne){
 		super();
 		this.idf = idf;
 		this.e = e;
+		this.nbLigne = nbLigne;
 	}
 	
 	public void verifier() throws SemantiqueException {
-		Symbole s = Tds.getInstance().identifier(new Entree(idf));
+		Symbole s = Tds.getInstance().identifier(new Entree(idf, nbLigne));
 		e.verifier();
 		if(!s.getType().equals(e.getType())){ // A REFAIRE?
 			throw new MauvaisTypeException("Type non conforme, renseigné:"+Tds.getInstance().identifier(new Entree(idf)).getType()+", attendu :"+ e.getType(),e.getLigne());
