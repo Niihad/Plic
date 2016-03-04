@@ -247,7 +247,7 @@ public class AnalyseurSyntaxique extends java_cup.runtime.lr_parser {
                 m.append(" dernier token lu : " + lesTerminaux.get(new Integer(s.sym))) ;
             }
             else {
-                m.append(" expression non terminée") ;
+                m.append(" expression non terminee") ;
             }
 
         }

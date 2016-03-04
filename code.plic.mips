@@ -1,0 +1,59 @@
+# zone de reservation de memoire
+
+	# initialise s7 avec sp 
+	move $s7,$sp 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
+
+# zone programme
+
+	# Range 1 dans $v0 et l'empile
+	li $v0, 1
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-12($s7)
+
+	# Range 3 dans $v0 et l'empile
+	li $v0, 3
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-8($s7)
+
+	# Range 4 dans $v0 et l'empile
+	li $v0, 4
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-4($s7)
+
+	# Range 5 dans $v0 et l'empile
+	li $v0, 5
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,0($s7)
+	
+# Ecrirechaine
+	.data 
+	stri0: .asciiz "fini"
+	.text 
+	li $v0, 4 
+	la $a0, stri0
+	syscall
+
+end :
+	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
+	li $v0, 10	# retour au systeme
+	syscall

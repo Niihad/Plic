@@ -16,6 +16,7 @@ public class EcrireExpression extends ArbreAbstrait {
 	
 	@Override
 	public void verifier() throws SemantiqueException {
+		expression.verifier();
 	}	
 	
 
