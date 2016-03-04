@@ -47,6 +47,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("# zone de reservation de memoire\n\n");
 		sb.append("	# initialise s7 avec sp \n"); 
 		sb.append("	move $s7,$sp \n");
+		sb.append("	# reserve les zones memoire des variables \n"); 
 		for(int i=0;i<Tds.getInstance().getTds().size();i++){
 			sb.append("	addi $sp ,$sp,-4 \n");
 		}

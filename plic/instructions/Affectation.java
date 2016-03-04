@@ -41,6 +41,7 @@ public class Affectation extends ArbreAbstrait{
 	public String toMips() throws PasDeDeclarationException{
 		 StringBuilder affectation = new StringBuilder();
 		 affectation.append("\n" + expr.toMips() + "\n");
+		 affectation.append("	# Affectation de "+idf+" a la valeur de "+expr.toString()+"\n");
 		 affectation.append("	add $sp,$sp,4 \n" +
 		 					"	lw $v0,($sp) \n" +
 		 					"	sw $v0,"+ Tds.getInstance().getDeplacement(new Entree(idf)) +"($s7)\n");
