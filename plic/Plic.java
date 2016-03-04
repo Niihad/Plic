@@ -36,7 +36,7 @@ public class Plic {
 			pw.close();
 			 
 			System.out.println("COMPILATION OK\n");
-            System.err.println("expression stockee dans l'arbre : " + arbre);
+            //System.err.println("expression stockee dans l'arbre : " + arbre);
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

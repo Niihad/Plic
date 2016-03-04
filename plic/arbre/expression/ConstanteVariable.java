@@ -27,7 +27,7 @@ public class ConstanteVariable extends Constante {
 		if(s == null){
 			Expression exp = Tds.getInstance().getAttente().get(new Entree(this.cste));
 			if (exp == null)
-				throw new SemantiqueException("Variable utilise en tant que membre droit avant d'etre declare", 0); // num ligne a ajouter
+				throw new SemantiqueException("Variable utilisee en tant que membre droit avant d'etre declaree", 404); // num ligne a ajouter
 			valeur = exp.valeur();
 			type = exp.getType();
 		}else{
