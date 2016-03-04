@@ -16,15 +16,12 @@ public abstract class BinaireArithmetique extends Binaire {
     }
     
     public void verifier() throws AnalyseException{
-    	
     	gauche.verifier();
     	droite.verifier();
     	if (gauche.getType().equals(droite.getType()) && gauche.getType().equals("entier")){
     		this.setType("entier");
-    	}
-    	else{
-    		
-    		throw new SemantiqueException("Mauvais types, entier attendu", this.getLigne());
+    	}else{
+    		throw new SemantiqueException("Mauvais types "+droite.getType()+", entier attendu "+gauche.getType(), this.getLigne());
     	}
     }    
 }

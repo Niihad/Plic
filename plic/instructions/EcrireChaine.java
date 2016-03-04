@@ -16,14 +16,9 @@ public class EcrireChaine extends ArbreAbstrait {
 	private String convertirCote(String chaine2) {
 		chaine2 = chaine2.substring(1, chaine2.length()-1);
 		StringBuilder sb = new StringBuilder();
-		boolean first = false;
 		for(int i = 0; i < chaine2.length(); i++){
 			char c = chaine2.charAt(i);
-			if(c == '"'){
-				first = !first;
-				if(!first)
-					sb.append('"');
-			}else{
+			if(c != '"'){
 				sb.append(c);
 			}
 		}
@@ -39,10 +34,10 @@ public class EcrireChaine extends ArbreAbstrait {
 		StringBuilder ecrire = new StringBuilder(); 
 		ecrire.append("	\n# Ecrirechaine\n");
 		ecrire.append("	.data \n");
-		ecrire.append("	stri"+this.cptEtiquette+": .asciiz \"" + chaine +"\"\n");
+		ecrire.append("	stri"+ArbreAbstrait.cptEtiquette+": .asciiz \"" + chaine +"\"\n");
 		ecrire.append("	.text \n");
 		ecrire.append("	li $v0, 4 \n");
-		ecrire.append("	la $a0, stri"+ this.cptEtiquette +"\n");
+		ecrire.append("	la $a0, stri"+ ArbreAbstrait.cptEtiquette +"\n");
 		ecrire.append("	syscall\n") ;
 		incCptEtiquette();
 		return ecrire.toString() ;

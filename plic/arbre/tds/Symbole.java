@@ -18,7 +18,6 @@ public class Symbole {
 	public Symbole(String statut, String type) {
     	this.statut = statut;
     	this.type = type;
-    	//System.out.println(statut +" "+type);
     }
  
     public String getStatut() {
@@ -36,10 +35,8 @@ public class Symbole {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-    
-    public String toString(){
+
+	public String toString(){
     	return statut+" "+type;
     }
 
