@@ -23,7 +23,7 @@ public class Declaration extends ArbreAbstrait {
 
 	@Override
 	public String toString(){
-		return "Declaration d'un "+t+" "+s+" appelé "+idf;		
+		return "Declaration d'un "+t+" "+s+" appele "+idf;		
 	}
 
 	@Override

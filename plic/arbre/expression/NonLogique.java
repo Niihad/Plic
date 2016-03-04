@@ -21,7 +21,7 @@ public class NonLogique extends Unaire {
     	if (expression.getType().equals("bool")){
     		this.setType("bool");
     	}else{
-    		throw new SemantiqueException("Mauvais types, booléen attendu", this.getLigne());
+    		throw new SemantiqueException("Mauvais types, booleen attendu", this.getLigne());
     	}
     }
 

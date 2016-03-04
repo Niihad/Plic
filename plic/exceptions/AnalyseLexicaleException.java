@@ -11,7 +11,10 @@ public class AnalyseLexicaleException extends AnalyseException {
 	private static final long serialVersionUID = 1L;
 
 	public AnalyseLexicaleException(int ligne, int colonne, String m) {
-        super("ERREUR LEXICALE :\n\tligne " + ligne + " colonne " + colonne + "\n\t" + m + " : caractère non reconnu") ;
+        super("ERREUR LEXICALE :\n\tligne " + ligne + " colonne " + colonne + "\n\t" + m + " : caractere non reconnu") ;
+    }
+	public AnalyseLexicaleException(int ligne, String m) {
+        super("ERREUR LEXICALE :\n\tligne " + ligne + "\n\t" + m + " : caractere non reconnu") ;
     }
 
 }

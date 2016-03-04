@@ -31,7 +31,7 @@ public class DeclarationAffectation extends ArbreAbstrait {
 
 	@Override
 	public String toString(){
-		return "DeclarationAffectation d'un "+t+" "+s+" appelé "+idf+ " avec valeur "+e;		
+		return "DeclarationAffectation d'un "+t+" "+s+" appele "+idf+ " avec valeur "+e;		
 	}
 
 	@Override

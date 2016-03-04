@@ -4,6 +4,8 @@ import plic.arbre.tds.Entree;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.Tds;
 import plic.exceptions.AnalyseException;
+import plic.exceptions.AnalyseLexicaleException;
+import plic.exceptions.SemantiqueException;
 
 public class ConstanteVariable extends Constante {
 	
@@ -24,6 +26,8 @@ public class ConstanteVariable extends Constante {
 		this.s = Tds.getInstance().getTds().get(new Entree(this.cste));
 		if(s == null){
 			Expression exp = Tds.getInstance().getAttente().get(new Entree(this.cste));
+			if (exp == null)
+				throw new SemantiqueException("Variable utilise en tant que membre droit avant d'etre declare", 0); // num ligne a ajouter
 			valeur = exp.valeur();
 			type = exp.getType();
 		}else{

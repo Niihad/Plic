@@ -35,7 +35,7 @@ public class Tds {
 	public void ajouterChamp(Entree entree, Symbole s) throws DoubleDeclarationException{
 		// si la variable est deja declarée lance une exception 
 		if (tds.containsKey(entree)){
-			throw new DoubleDeclarationException(entree.getEntree() +" est déja déclaré", entree.getLigne());
+			throw new DoubleDeclarationException(entree.getEntree() +" est deja declare", entree.getLigne());
 		}else{ // sinon ajoute la variable da ns la hashMap
 			s.setDepl(deplacement);
 			Expression exp = attente.get(entree);
@@ -63,7 +63,7 @@ public class Tds {
 	public Symbole identifier(Entree entree,int nbligne) throws PasDeDeclarationException{
 		Symbole s = tds.get(entree);
 		if(s==null){
-			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas été déclaré!", nbligne);
+			throw new PasDeDeclarationException(entree.getEntree() +" n'a pas ete declare!", nbligne);
 		}
 		return s;
 	}

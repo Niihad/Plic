@@ -23,7 +23,7 @@ public void verifier() throws AnalyseException{
     		this.setType("bool");
     	}
     	else{
-    		throw new SemantiqueException("Mauvais types, booléen attendu", this.getLigne());
+    		throw new SemantiqueException("Mauvais types, booleen attendu", this.getLigne());
     	}
     }
     

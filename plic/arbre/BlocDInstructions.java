@@ -55,8 +55,8 @@ public class BlocDInstructions extends ArbreAbstrait {
     		sb.append(a.toMips());
     	}
 		sb.append("\nend :\n");
-		sb.append("	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0\n");
-		sb.append("	li $v0, 10	# retour au système\n");
+		sb.append("	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic\n");
+		sb.append("	li $v0, 10	# retour au systeme\n");
 		sb.append("	syscall\n");
 		return sb.toString();		
 	}
