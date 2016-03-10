@@ -4,7 +4,6 @@ import plic.arbre.tds.Entree;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.Tds;
 import plic.exceptions.AnalyseException;
-import plic.exceptions.AnalyseLexicaleException;
 import plic.exceptions.SemantiqueException;
 
 public class ConstanteVariable extends Constante {

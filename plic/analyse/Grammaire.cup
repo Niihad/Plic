@@ -37,6 +37,12 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.EGALE), "=") ;
         lesTerminaux.put(new Integer(CodesLexicaux.ECRIR), "ecrire") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.SI), "si") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ALORS), "alors") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ACCOLADEOUVERT), "{") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.SINON), "sinon") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ACCOLADEFERMER), "}") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.FINSI), "fsi") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.STATUT), "publique | privee") ;
         lesTerminaux.put(new Integer(CodesLexicaux.TYPE), "entier | bool") ;
@@ -77,13 +83,14 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, ECRIRE;
+non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE;
 non terminal String LIDF;
 non terminal Affectation AFFECT;
+non terminal Conditionnelle CONDITION;
 non terminal Expression EXPR, CSTE;
 
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
+terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, SI, ALORS, ACCOLADEOUVERT, ACCOLADEFERMER, SINON, FINSI;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
 terminal Symbol    CLASS, FIN, EGALE, ECRIR;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, VIRGULE, POINT_VIRGULE, IDF, CONSTANTECHAINE, STATUT, TYPE;
@@ -112,15 +119,15 @@ CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
                     | CLASS:c IDF:nomClasse FIN ;
                     
 LDECLARATION ::= LDECLARATION DECLARATION:d
-			 | DECLARATION:d ;		
+				 {: RESULT = d; :}
+			 | DECLARATION:d
+			     {: RESULT = d; :};	
 				 		
-DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE {: 
-                 arbre.ajouter(dc) ; 
-                 :}
-                 
-			 	| DECL_CONST:dc POINT_VIRGULE {: 
-                  arbre.ajouter(dc) ;
-                  :};
+DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
+				{: arbre.ajouter(dc) ; :}
+			 | DECL_CONST:dc 
+			 	{: arbre.ajouter(dc);
+			 	   RESULT = dc; :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
@@ -138,19 +145,27 @@ LIDF ::= VIRGULE IDF:idf LIDF
 	   {:	ALidf = new ArrayList<String>();
 	   		ALidf.add(idf); :};
 
-DECL_CONST ::= AFFECT:a
-			{: RESULT = a; :}
-			 | ECRIRE:e
-			{: RESULT = e; :};
+DECL_CONST ::= INSTRUCTION:i 
+			   {: RESULT = i; :};
 
-AFFECT ::= IDF:idf EGALE EXPR:e
+INSTRUCTION ::= AFFECT:a POINT_VIRGULE
+				{: RESULT = a; :}
+			| ECRIRE:e POINT_VIRGULE
+				{: RESULT = e; :}
+			| CONDITION:c
+				{: RESULT = c; :};
+
+AFFECT ::= IDF:idf EGALE EXPR:e 
                 {: RESULT = new Affectation(idf, e, idfleft+1); :};
 
 
-ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
+ECRIRE ::= ECRIR CONSTANTECHAINE:chaine 
 		   {:  RESULT = new EcrireChaine(chaine); :}
    	   | ECRIR EXPR:e
 		   {:  RESULT = new EcrireExpression(e); :};
+		   
+CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION:d  ACCOLADEFERMER ACCOLADEOUVERT SINON ACCOLADEOUVERT LDECLARATION:dsinon ACCOLADEFERMER ACCOLADEFERMER FINSI
+			  {: RESULT = new Conditionnelle(e, d, dsinon); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

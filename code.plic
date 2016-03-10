@@ -1,5 +1,5 @@
 classe Essai 
-     // définition d'attributs
+     // dï¿½finition d'attributs
      privee entier a, b, c, d ;
      a = 1 ;
      b
@@ -14,5 +14,23 @@ classe Essai
 				// ;
 					;
 
-    ecrire "fini" ;
+    ecrire "c = " ;
+	
+	ecrire c;
+   ecrire "\n d = " ;
+   ecrire d;
+	
+   si a<b alors {
+	  c = 100;
+   }
+   {sinon {
+        d = 80;
+   }}
+   fsi
+   
+   ecrire "\nc = " ;
+	ecrire c;
+   ecrire "\n d = " ;
+   ecrire d;
+   
 fin

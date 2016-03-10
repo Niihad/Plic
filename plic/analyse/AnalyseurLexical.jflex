@@ -46,6 +46,12 @@ commentaireSlashSlash = [/][/].*
 "fin"        		{ return symbol(CodesLexicaux.FIN); }
 "="                 { return symbol(CodesLexicaux.EGALE); }
 "ecrire"            { return symbol(CodesLexicaux.ECRIR); }
+"si"				{ return symbol(CodesLexicaux.SI); }
+"alors"				{ return symbol(CodesLexicaux.ALORS); }
+"{"					{ return symbol(CodesLexicaux.ACCOLADEOUVERT); }
+"sinon"				{ return symbol(CodesLexicaux.SINON); }
+"}"					{ return symbol(CodesLexicaux.ACCOLADEFERMER); }
+"fsi"				{ return symbol(CodesLexicaux.FINSI); }
 "+"                	{ return symbol(CodesLexicaux.PLUS); }
 "-"                	{ return symbol(CodesLexicaux.MOINS); }
 "*"                	{ return symbol(CodesLexicaux.MULT); }

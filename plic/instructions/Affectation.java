@@ -33,7 +33,7 @@ public class Affectation extends ArbreAbstrait{
 	
 	@Override
 	public String toString(){
-		return "Affectation de "+idf+" a  la valeur "+expr.toString();		
+		return "Affectation de "+idf+" Ã  la valeur "+expr.toString();		
 	}
 
 	

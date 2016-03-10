@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.arbre.ArbreAbstrait;
+
 /**
  * 3 déc. 2015
  *
@@ -21,7 +23,6 @@ public class Different extends Comparaison {
 	@Override
 	public String toMips() {
 		incCptEtiquette();
-		int cpt = Expression.cptEtiquette;
 		String egal ="";
 		egal = this.gauche.toMips()+"\n" + this.droite.toMips()+ "\n" +
 				  "	# Compare "+this.toString()+"\n"+
@@ -29,17 +30,18 @@ public class Different extends Comparaison {
 		      	   "	lw $v0,($sp)\n"             +
 		      	   "	add $sp,$sp,4\n"            +
 		      	   "	lw $t8,($sp)\n"             +
-		      	   "	bne $v0,$t8 sinon"+cpt+"\n" +
-				   "	alors"+cpt+":\n"            +
+		      	   "	bne $v0,$t8 sinon"+ArbreAbstrait.cptEtiquette+"\n" +
+				   "	alors"+ArbreAbstrait.cptEtiquette+":\n"            +
 		           "	li $v0, 0\n"                + 
 		           "	sw $v0,0($sp)\n"            +
 		           "	add $sp,$sp,-4\n"           +
-		           "	j finsi"+cpt+"\n"           + 
-		           "	sinon"+cpt+":\n"            + 
+		           "	j finsi"+ArbreAbstrait.cptEtiquette+"\n"           + 
+		           "	sinon"+ArbreAbstrait.cptEtiquette+":\n"            + 
 		           "	li $v0, 1\n"                + 
 		       	   "	sw $v0,0($sp)\n"            + 
 		           "	add $sp,$sp,-4\n"           +
-		       	   "	finsi"+cpt+":\n";
+		       	   "	finsi"+ArbreAbstrait.cptEtiquette+":\n";
+		incCptEtiquette();
 		return egal;
 		
 	}
