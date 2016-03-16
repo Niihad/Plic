@@ -4,200 +4,73 @@
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
 	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
 
 # zone programme
 
-	# Range 1 dans $v0 et l'empile
-	li $v0, 1
+	# Range 10 dans $v0 et l'empile
+	li $v0, 10
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de a a la valeur de 1
+	# Affectation de a a la valeur de 10
 	add $sp,$sp,4 
 	lw $v0,($sp) 
-	sw $v0,-12($s7)
-
-	# Range 3 dans $v0 et l'empile
-	li $v0, 3
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de b a la valeur de 3
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-8($s7)
+	sw $v0,0($s7)
 
 	# Range 4 dans $v0 et l'empile
 	li $v0, 4
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de c a la valeur de 4
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-4($s7)
-
-	# Range 5 dans $v0 et l'empile
-	li $v0, 5
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de d a la valeur de 5
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,0($s7)
-	
-# Ecrirechaine
-	.data 
-	stri0: .asciiz "c = "
-	.text 
-	li $v0, 4 
-	la $a0, stri0
-	syscall
-	# Ecrire c
-	# Range valeur de c dans $v0 et l'empile
-	lw $v0,-4($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	add $sp,$sp,4 
-	li $v0, 1 
-	lw $a0,($sp) 
-	syscall
-	
-# Ecrirechaine
-	.data 
-	stri1: .asciiz "\n d = "
-	.text 
-	li $v0, 4 
-	la $a0, stri1
-	syscall
-	# Ecrire d
-	# Range valeur de d dans $v0 et l'empile
-	lw $v0,0($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	add $sp,$sp,4 
-	li $v0, 1 
-	lw $a0,($sp) 
-	syscall
-
-	# Range 100 dans $v0 et l'empile
-	li $v0, 100
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de c a la valeur de 100
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-4($s7)
-
-	# Range 80 dans $v0 et l'empile
-	li $v0, 80
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de d a la valeur de 80
+	# Affectation de a a la valeur de 4
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
 
 	# Range valeur de a dans $v0 et l'empile
-	lw $v0,-12($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Range valeur de b dans $v0 et l'empile
-	lw $v0,-8($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Compare (a < b)
-	add $sp,$sp,4
-	lw $v0,($sp)
-	add $sp,$sp,4
-	lw $t8,($sp)
-	sub $v0,$t8,$v0
-	bgez $v0 sinon3
-	alors3:
-	li $v0, 1
-	sw $v0,0($sp)
-	add $sp,$sp,-4
-	j finsi3
-	sinon3:
-	li $v0, 0
-	sw $v0,0($sp)
-	add $sp,$sp,-4
-	finsi3:
-
-	# Conditionnelle de (a < b)
-	add $sp,$sp,4 
-	si4: bgez $sp, sinon4
-	alors4:
-		
-	# Range 100 dans $v0 et l'empile
-	li $v0, 100
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de c a la valeur de 100
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,-4($s7)
-	j finsi4
-	sinon4:
-		
-	# Range 80 dans $v0 et l'empile
-	li $v0, 80
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de d a la valeur de 80
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,0($s7)
-
-	finsi4:
-	
-# Ecrirechaine
-	.data 
-	stri5: .asciiz "\nc = "
-	.text 
-	li $v0, 4 
-	la $a0, stri5
-	syscall
-	# Ecrire c
-	# Range valeur de c dans $v0 et l'empile
-	lw $v0,-4($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	add $sp,$sp,4 
-	li $v0, 1 
-	lw $a0,($sp) 
-	syscall
-	
-# Ecrirechaine
-	.data 
-	stri6: .asciiz "\n d = "
-	.text 
-	li $v0, 4 
-	la $a0, stri6
-	syscall
-	# Ecrire d
-	# Range valeur de d dans $v0 et l'empile
 	lw $v0,0($s7)
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
+	# Range 10 dans $v0 et l'empile
+	li $v0, 10
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Compare (a == 10)
+	add $sp,$sp,4
+	lw $v0,($sp)
+	add $sp,$sp,4
+	lw $t8,($sp)
+	bne $v0,$t8 sinon1
+	alors1:
+	li $v0, 1
+	sw $v0,0($sp)
+	add $sp,$sp,-4
+	j finsi1
+	sinon1:
+	li $v0, 0
+	sw $v0,0($sp)
+	add $sp,$sp,-4
+	finsi1:
+
+	# Conditionnelle de (a == 10)
 	add $sp,$sp,4 
-	li $v0, 1 
-	lw $a0,($sp) 
-	syscall
+	si2: bgez $sp, sinon2
+	alors2:
+		
+	# Range 4 dans $v0 et l'empile
+	li $v0, 4
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Affectation de a a la valeur de 4
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,0($s7)
+	j finsi2
+
+	finsi2:
 
 end :
 	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
