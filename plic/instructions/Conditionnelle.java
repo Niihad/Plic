@@ -35,10 +35,8 @@ public class Conditionnelle extends ArbreAbstrait {
 		}
 		if (sinon != null) {
 			if (expr.valeur() == 1) { // Test de la condition
-				sinon.verifier();
 				alors.verifier();
 			} else {
-				alors.verifier();
 				sinon.verifier();
 			}
 		}
@@ -68,7 +66,8 @@ public class Conditionnelle extends ArbreAbstrait {
 			condition.append("\n" + expr.toMips() + "\n");
 			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
 			condition.append("	add $sp,$sp,4 \n" + "	si"
-					+ ArbreAbstrait.cptEtiquette + ": bgez $sp, sinon"
+					+ "lw $v0,($sp)"
+					+ ArbreAbstrait.cptEtiquette + ": blez $sp, sinon"
 					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
 					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
 					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette
@@ -81,7 +80,7 @@ public class Conditionnelle extends ArbreAbstrait {
 			condition.append("\n" + expr.toMips() + "\n");
 			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
 			condition.append("	add $sp,$sp,4 \n" + "	si"
-					+ ArbreAbstrait.cptEtiquette + ": bgez $sp, sinon"
+					+ ArbreAbstrait.cptEtiquette + ": blez $sp, finsi"
 					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
 					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
 					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette

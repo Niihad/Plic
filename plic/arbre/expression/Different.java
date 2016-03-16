@@ -30,14 +30,14 @@ public class Different extends Comparaison {
 		      	   "	lw $v0,($sp)\n"             +
 		      	   "	add $sp,$sp,4\n"            +
 		      	   "	lw $t8,($sp)\n"             +
-		      	   "	bne $v0,$t8 sinon"+ArbreAbstrait.cptEtiquette+"\n" +
+		      	   "	beq $v0,$t8 sinon"+ArbreAbstrait.cptEtiquette+"\n" +
 				   "	alors"+ArbreAbstrait.cptEtiquette+":\n"            +
-		           "	li $v0, 0\n"                + 
+		           "	li $v0, 1\n"                + 
 		           "	sw $v0,0($sp)\n"            +
 		           "	add $sp,$sp,-4\n"           +
 		           "	j finsi"+ArbreAbstrait.cptEtiquette+"\n"           + 
 		           "	sinon"+ArbreAbstrait.cptEtiquette+":\n"            + 
-		           "	li $v0, 1\n"                + 
+		           "	li $v0, 0\n"                + 
 		       	   "	sw $v0,0($sp)\n"            + 
 		           "	add $sp,$sp,-4\n"           +
 		       	   "	finsi"+ArbreAbstrait.cptEtiquette+":\n";

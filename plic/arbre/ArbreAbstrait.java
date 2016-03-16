@@ -12,8 +12,14 @@ import plic.exceptions.SemantiqueException;
 public abstract class ArbreAbstrait {
     
 	public static int cptEtiquette = 0;
+    protected boolean isArbreDeBase;
 	
     protected ArbreAbstrait() {
+    	isArbreDeBase = false;
+    }
+    
+    public void setArbreDeBase(boolean base){
+    	this.isArbreDeBase = base;
     }
     
    	public void incCptEtiquette(){

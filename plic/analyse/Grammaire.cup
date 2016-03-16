@@ -12,7 +12,8 @@ import java_cup.runtime.*;
 
 action code {:  BlocDInstructions arbre = new BlocDInstructions() ;
 				ArrayList<String> ALidf;
-				BlocDInstructions bdi = new BlocDInstructions();
+				BlocDInstructions bdiAlors = new BlocDInstructions();
+				BlocDInstructions bdiSinon = new BlocDInstructions();
              :} ;
 
 parser code {:
@@ -84,7 +85,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE, LINSTRUCTION, DECLARATION_COND, LDECLARATION_COND;
+non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE, LINSTRUCTION, DECLARATION_COND, LDECLARATION_COND, LDECLARATION_CONDS, DECLARATION_CONDS;
 non terminal String LIDF;
 non terminal Affectation AFFECT;
 non terminal Conditionnelle CONDITION;
@@ -131,20 +132,34 @@ DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
 			 	{: arbre.ajouter(dc);
 			 	   RESULT = dc; :};
 			 	   
-LDECLARATION_COND ::= LDECLARATION_COND DECLARATION_COND:d
+LDECLARATION_COND ::=  LDECLARATION_COND DECLARATION_COND:d
 				 {:
-				//bdi = new BlocDInstructions();
-				 bdi.ajouter(d);
-				 RESULT = bdi;:}
+				 bdiAlors.ajouter(d);
+				 RESULT = bdiAlors;:}
 			 | DECLARATION_COND:d
 			     {:
-				 bdi.ajouter(d);
-			     RESULT = bdi; 
-			     bdi = new BlocDInstructions();
-			     System.out.println("Oui"+d);
+			     //bdiAlors = new BlocDInstructions();
+				 bdiAlors.ajouter(d);
+			     RESULT = bdiAlors; 
 			     :};	
 				 		
 DECLARATION_COND  ::= DECL_CHAMP:dc POINT_VIRGULE
+				{: RESULT = dc; :}
+			 | DECL_CONST:dc 
+			 	{: RESULT = dc; :};
+			 	
+LDECLARATION_CONDS ::= LDECLARATION_CONDS DECLARATION_CONDS:d
+				 {:
+				 bdiSinon.ajouter(d);
+				 RESULT = bdiSinon;:}
+			 | DECLARATION_CONDS:d
+			     {:
+			     //bdiSinon = new BlocDInstructions();
+				 bdiSinon.ajouter(d);
+			     RESULT = bdiSinon; 
+			     :};	
+				 		
+DECLARATION_CONDS  ::= DECL_CHAMP:dc POINT_VIRGULE
 				{: RESULT = dc; :}
 			 | DECL_CONST:dc 
 			 	{: RESULT = dc; :};
@@ -189,11 +204,15 @@ ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
    	   | ECRIR EXPR:e
 		   {:  RESULT = new EcrireExpression(e); :};
 		   
-CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d ACCOLADEFERMER SINON ACCOLADEOUVERT LDECLARATION_COND:sinon ACCOLADEFERMER FINSI
+CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d ACCOLADEFERMER SINON ACCOLADEOUVERT LDECLARATION_CONDS:sinon ACCOLADEFERMER FINSI
 			  {:
-			  RESULT = new Conditionnelle(e, d, sinon); :}
+			  bdiAlors = new BlocDInstructions();
+			  bdiSinon = new BlocDInstructions();
+			  RESULT = new Conditionnelle(e, d, sinon);
+			  :}
 			  | SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d  ACCOLADEFERMER FINSI
 			  {: 
+			  bdiAlors = new BlocDInstructions();
 			   RESULT = new Conditionnelle(e, d); 
 			  :};
 

@@ -4,21 +4,32 @@
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
 	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
 
 # zone programme
+
+	# Range 11 dans $v0 et l'empile
+	li $v0, 11
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Affectation de a a la valeur de 11
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,-4($s7)
 
 	# Range 10 dans $v0 et l'empile
 	li $v0, 10
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de a a la valeur de 10
+	# Affectation de b a la valeur de 10
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
 
 	# Range valeur de a dans $v0 et l'empile
-	lw $v0,0($s7)
+	lw $v0,-4($s7)
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
@@ -27,12 +38,12 @@
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Compare (a == 10)
+	# Compare (a != 10)
 	add $sp,$sp,4
 	lw $v0,($sp)
 	add $sp,$sp,4
 	lw $t8,($sp)
-	bne $v0,$t8 sinon1
+	beq $v0,$t8 sinon1
 	alors1:
 	li $v0, 1
 	sw $v0,0($sp)
@@ -44,44 +55,23 @@
 	add $sp,$sp,-4
 	finsi1:
 
-	# Conditionnelle de (a == 10)
+	# Conditionnelle de (a != 10)
 	add $sp,$sp,4 
-	si2: bgez $sp, sinon2
+	silw $v0,($sp)2: blez $sp, sinon2
 	alors2:
-		# zone de reservation de memoire
-
-	# initialise s7 avec sp 
-	move $s7,$sp 
-	# reserve les zones memoire des variables 
-	addi $sp ,$sp,-4 
-
-# zone programme
-
-	# Range 8 dans $v0 et l'empile
-	li $v0, 8
+		
+	# Range 12 dans $v0 et l'empile
+	li $v0, 12
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de a a la valeur de 8
+	# Affectation de b a la valeur de 12
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
-
-end :
-	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
-	li $v0, 10	# retour au systeme
-	syscall
 	j finsi2
 	sinon2:
-		# zone de reservation de memoire
-
-	# initialise s7 avec sp 
-	move $s7,$sp 
-	# reserve les zones memoire des variables 
-	addi $sp ,$sp,-4 
-
-# zone programme
-
+		
 	# Range 12 dans $v0 et l'empile
 	li $v0, 12
 	sw $v0,($sp) 
@@ -90,17 +80,67 @@ end :
 	# Affectation de a a la valeur de 12
 	add $sp,$sp,4 
 	lw $v0,($sp) 
-	sw $v0,0($s7)
-
-end :
-	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
-	li $v0, 10	# retour au systeme
-	syscall
+	sw $v0,-4($s7)
 
 	finsi2:
+
+	# Range valeur de a dans $v0 et l'empile
+	lw $v0,-4($s7)
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Range 2222 dans $v0 et l'empile
+	li $v0, 2222
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Compare (a == 2222)
+	add $sp,$sp,4
+	lw $v0,($sp)
+	add $sp,$sp,4
+	lw $t8,($sp)
+	bne $v0,$t8 sinon4
+	alors4:
+	li $v0, 1
+	sw $v0,0($sp)
+	add $sp,$sp,-4
+	j finsi4
+	sinon4:
+	li $v0, 0
+	sw $v0,0($sp)
+	add $sp,$sp,-4
+	finsi4:
+
+	# Conditionnelle de (a == 2222)
+	add $sp,$sp,4 
+	si5: blez $sp, finsi5
+	alors5:
+		
+	# Range 0 dans $v0 et l'empile
+	li $v0, 0
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Affectation de b a la valeur de 0
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,0($s7)
+	j finsi5
+
+	finsi5:
+	# Ecrire b
+	# Range valeur de b dans $v0 et l'empile
+	lw $v0,0($s7)
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	li $v0, 1 
+	lw $a0,($sp) 
+	syscall
 	# Ecrire a
 	# Range valeur de a dans $v0 et l'empile
-	lw $v0,0($s7)
+	lw $v0,-4($s7)
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
