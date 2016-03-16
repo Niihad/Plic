@@ -17,16 +17,6 @@
 	lw $v0,($sp) 
 	sw $v0,0($s7)
 
-	# Range 4 dans $v0 et l'empile
-	li $v0, 4
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de a a la valeur de 4
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,0($s7)
-
 	# Range valeur de a dans $v0 et l'empile
 	lw $v0,0($s7)
 	sw $v0,($sp) 
@@ -58,19 +48,66 @@
 	add $sp,$sp,4 
 	si2: bgez $sp, sinon2
 	alors2:
-		
-	# Range 4 dans $v0 et l'empile
-	li $v0, 4
+		# zone de reservation de memoire
+
+	# initialise s7 avec sp 
+	move $s7,$sp 
+	# reserve les zones memoire des variables 
+	addi $sp ,$sp,-4 
+
+# zone programme
+
+	# Range 8 dans $v0 et l'empile
+	li $v0, 8
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de a a la valeur de 4
+	# Affectation de a a la valeur de 8
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
+
+end :
+	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
+	li $v0, 10	# retour au systeme
+	syscall
 	j finsi2
+	sinon2:
+		# zone de reservation de memoire
+
+	# initialise s7 avec sp 
+	move $s7,$sp 
+	# reserve les zones memoire des variables 
+	addi $sp ,$sp,-4 
+
+# zone programme
+
+	# Range 12 dans $v0 et l'empile
+	li $v0, 12
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	# Affectation de a a la valeur de 12
+	add $sp,$sp,4 
+	lw $v0,($sp) 
+	sw $v0,0($s7)
+
+end :
+	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic
+	li $v0, 10	# retour au systeme
+	syscall
 
 	finsi2:
+	# Ecrire a
+	# Range valeur de a dans $v0 et l'empile
+	lw $v0,0($s7)
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
+
+	add $sp,$sp,4 
+	li $v0, 1 
+	lw $a0,($sp) 
+	syscall
 
 end :
 	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic

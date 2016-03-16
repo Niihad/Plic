@@ -2,8 +2,12 @@ classe Essai
      publique entier a;
      a = 10;
      si (a == 10) alors {
-     	a = 4;
+     	a = 8;
+     }
+     sinon{
+     a = 12;
      }
      fsi
+     ecrire a;
    
 fin

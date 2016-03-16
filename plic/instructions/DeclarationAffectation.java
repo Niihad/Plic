@@ -36,8 +36,7 @@ public class DeclarationAffectation extends ArbreAbstrait {
 
 	@Override
 	public String toMips() {
-		affectation.toMips();
-		return "";
+		return affectation.toMips();
 	}
 
 }

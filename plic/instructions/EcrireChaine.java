@@ -45,7 +45,7 @@ public class EcrireChaine extends ArbreAbstrait {
 
 	@Override
 	public String toString() {
-		return "Ecriture de la chaine "+chaine;
+		return "Ecriture de la chaine: "+chaine;
 	}
 
 }

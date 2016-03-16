@@ -12,6 +12,7 @@ import java_cup.runtime.*;
 
 action code {:  BlocDInstructions arbre = new BlocDInstructions() ;
 				ArrayList<String> ALidf;
+				BlocDInstructions bdi = new BlocDInstructions();
              :} ;
 
 parser code {:
@@ -83,7 +84,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE;
+non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE, LINSTRUCTION, DECLARATION_COND, LDECLARATION_COND;
 non terminal String LIDF;
 non terminal Affectation AFFECT;
 non terminal Conditionnelle CONDITION;
@@ -124,10 +125,29 @@ LDECLARATION ::= LDECLARATION DECLARATION:d
 			     {: RESULT = d; :};	
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
-				{: arbre.ajouter(dc) ; :}
+				{: arbre.ajouter(dc) ;
+					RESULT = dc; :}
 			 | DECL_CONST:dc 
 			 	{: arbre.ajouter(dc);
 			 	   RESULT = dc; :};
+			 	   
+LDECLARATION_COND ::= LDECLARATION_COND DECLARATION_COND:d
+				 {:
+				//bdi = new BlocDInstructions();
+				 bdi.ajouter(d);
+				 RESULT = bdi;:}
+			 | DECLARATION_COND:d
+			     {:
+				 bdi.ajouter(d);
+			     RESULT = bdi; 
+			     bdi = new BlocDInstructions();
+			     System.out.println("Oui"+d);
+			     :};	
+				 		
+DECLARATION_COND  ::= DECL_CHAMP:dc POINT_VIRGULE
+				{: RESULT = dc; :}
+			 | DECL_CONST:dc 
+			 	{: RESULT = dc; :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
@@ -147,6 +167,11 @@ LIDF ::= VIRGULE IDF:idf LIDF
 
 DECL_CONST ::= INSTRUCTION:i 
 			   {: RESULT = i; :};
+			   
+LINSTRUCTION ::= LINSTRUCTION INSTRUCTION:i
+				 {: RESULT = i; :}
+			 | INSTRUCTION:i
+			     {: RESULT = i; :};	
 
 INSTRUCTION ::= AFFECT:a POINT_VIRGULE
 				{: RESULT = a; :}
@@ -164,10 +189,13 @@ ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
    	   | ECRIR EXPR:e
 		   {:  RESULT = new EcrireExpression(e); :};
 		   
-CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION:d  ACCOLADEFERMER SINON ACCOLADEOUVERT LDECLARATION:dsinon ACCOLADEFERMER FINSI
-			  {: RESULT = new Conditionnelle(e, d, dsinon); :}
-			  | SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION:d  ACCOLADEFERMER FINSI
-			  {: RESULT = new Conditionnelle(e, d); :};
+CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d ACCOLADEFERMER SINON ACCOLADEOUVERT LDECLARATION_COND:sinon ACCOLADEFERMER FINSI
+			  {:
+			  RESULT = new Conditionnelle(e, d, sinon); :}
+			  | SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d  ACCOLADEFERMER FINSI
+			  {: 
+			   RESULT = new Conditionnelle(e, d); 
+			  :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

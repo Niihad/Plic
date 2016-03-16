@@ -33,15 +33,32 @@ public class Conditionnelle extends ArbreAbstrait {
 					+ expr.getType() + ", type boolean attendu",
 					expr.getLigne());
 		}
+		if (sinon != null) {
+			if (expr.valeur() == 1) { // Test de la condition
+				sinon.verifier();
+				alors.verifier();
+			} else {
+				alors.verifier();
+				sinon.verifier();
+			}
+		}
+		else{
+			if (expr.valeur() == 1){
+				alors.verifier();
+			}
+		}
 	}
 
 	@Override
 	public String toString() {
 		if (sinon != null)
-			return "Conditionnelle si " + expr.toString()+"\n\tAlors: \n\t"+alors.toString()+"\n\tSinon: \n\t"+sinon.toString();
+			return "Conditionnelle si " + expr.toString() + "\n\tAlors: \n"
+					+ alors.toString() + "\n\tSinon: \n" + sinon.toString()
+					+ "\nFinSi";
 		else
-			return "Conditionnelle si " + expr.toString()+"\n\tAlors: \n\t"+alors.toString();
-			
+			return "Conditionnelle si " + expr.toString() + "\n\tAlors: \n"
+					+ alors.toString() + "\nFinSi";
+
 	}
 
 	@Override
@@ -60,7 +77,7 @@ public class Conditionnelle extends ArbreAbstrait {
 					+ ArbreAbstrait.cptEtiquette + ":\n");
 
 			incCptEtiquette();
-		}else{
+		} else {
 			condition.append("\n" + expr.toMips() + "\n");
 			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
 			condition.append("	add $sp,$sp,4 \n" + "	si"
@@ -68,7 +85,7 @@ public class Conditionnelle extends ArbreAbstrait {
 					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
 					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
 					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette
-					+ "\n\n	finsi"+ ArbreAbstrait.cptEtiquette + ":\n");
+					+ "\n\n	finsi" + ArbreAbstrait.cptEtiquette + ":\n");
 
 			incCptEtiquette();
 		}
