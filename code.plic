@@ -1,13 +1,12 @@
 classe Essai 
      publique entier a;
-     a = 11;
      a = 10;
-     a = 10;
-     a = 10;
-     a = 10;
-     si (a != 10) alors     	
+     si (a == 11) alors
      	a = 12;
-     sinon 
-     	a = 14;
-     	fsi
+     	si (a == 3) alors
+     	  	a = 14;
+     	 fsi
+     sinon
+      a = 13;
+   	fsi
 fin

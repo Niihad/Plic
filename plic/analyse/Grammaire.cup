@@ -12,8 +12,7 @@ import java_cup.runtime.*;
 
 action code {:  BlocDInstructions arbre = new BlocDInstructions() ;
 				ArrayList<String> ALidf;
-				BlocDInstructions bdiAlors = new BlocDInstructions();
-				BlocDInstructions bdiSinon = new BlocDInstructions();
+				ArrayList<BlocDInstructions> ALinstr;
              :} ;
 
 parser code {:
@@ -111,24 +110,29 @@ start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
                 {: 
+                	//arbre.ajouter(c);
                    RESULT = c;
                 :};
 
   	        
 CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
-                    {: RESULT = ld; :}
+                    {: 
+                    RESULT = ld; :}
                     | CLASS:c IDF:nomClasse FIN ;
                     
 LDECLARATION ::= LDECLARATION:ld DECLARATION:d
  				{: 
  				ld.ajouter(d);
-				  RESULT = ld; :}
+				  RESULT = ld;  :}
 			 | DECLARATION:d
-			     {: RESULT = d; :};	
+			     {:	
+			      BlocDInstructions b = new BlocDInstructions() ;
+			      b.ajouter(d) ;
+				  RESULT = b; :};	
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
 				{: //arbre.ajouter(dc) ;
-					RESULT = null; :}
+					RESULT = dc; :}
 			 | DECL_CONST:dc 
 			 	{: //arbre.ajouter(dc);
 			 	   RESULT = dc; :};

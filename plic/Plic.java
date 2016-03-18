@@ -28,7 +28,6 @@ public class Plic {
         	pw = new PrintWriter(new BufferedWriter(new FileWriter(fichierDest)));
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            arbre.setArbreDeBase(true);
             arbre.verifier(); 
 			 
 			String res = arbre.toMips();

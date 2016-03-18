@@ -21,7 +21,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 	}
 
 	public void ajouter(ArbreAbstrait a) {
-		if (a!=null)
+		//if (a != null)
 			instr.add(a);
 	}
 
@@ -45,24 +45,16 @@ public class BlocDInstructions extends ArbreAbstrait {
 	@Override
 	public String toMips() {
 		StringBuilder sb = new StringBuilder();
-		if (isArbreDeBase) {
-			sb.append("# zone de reservation de memoire\n\n");
-			sb.append("	# initialise s7 avec sp \n");
-			sb.append("	move $s7,$sp \n");
-			sb.append("	# reserve les zones memoire des variables \n");
-			for (int i = 0; i < Tds.getInstance().getTds().size(); i++) {
-				sb.append("	addi $sp ,$sp,-4 \n");
-			}
-			sb.append("\n# zone programme\n");
+		sb.append("# zone de reservation de memoire\n\n");
+		sb.append("	# initialise s7 avec sp \n");
+		sb.append("	move $s7,$sp \n");
+		sb.append("	# reserve les zones memoire des variables \n");
+		for (int i = 0; i < Tds.getInstance().getTds().size(); i++) {
+			sb.append("	addi $sp ,$sp,-4 \n");
 		}
+		sb.append("\n# zone programme\n");
 		for (ArbreAbstrait a : instr) {
 			sb.append(a.toMips());
-		}
-		if (isArbreDeBase) {
-			sb.append("\nend :\n");
-			sb.append("	move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic\n");
-			sb.append("	li $v0, 10	# retour au systeme\n");
-			sb.append("	syscall\n");
 		}
 		return sb.toString();
 	}
