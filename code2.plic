@@ -1,0 +1,6 @@
+classe Essai 
+     publique entier a;
+     a = 11;
+     a = 12 ;
+     si (a==11) alors a = 13; fsi
+fin

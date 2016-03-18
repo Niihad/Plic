@@ -1,11 +1,12 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.exceptions.PasDeDeclarationException;
 import plic.exceptions.SemantiqueException;
 
-public class EcrireExpression extends ArbreAbstrait {
+public class EcrireExpression extends BlocDInstructions {
 
 	private Expression expression;
 	

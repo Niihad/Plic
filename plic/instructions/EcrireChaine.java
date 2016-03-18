@@ -1,9 +1,10 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.exceptions.SemantiqueException;
 
-public class EcrireChaine extends ArbreAbstrait {
+public class EcrireChaine extends BlocDInstructions {
 
 	private String chaine;
 	

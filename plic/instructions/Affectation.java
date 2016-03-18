@@ -1,6 +1,7 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.arbre.tds.Entree;
 import plic.arbre.tds.Symbole;
@@ -9,7 +10,7 @@ import plic.exceptions.MauvaisTypeException;
 import plic.exceptions.PasDeDeclarationException;
 import plic.exceptions.SemantiqueException;
 
-public class Affectation extends ArbreAbstrait{
+public class Affectation extends BlocDInstructions{
 
 	private String idf ;
 	private Expression expr ;

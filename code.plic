@@ -1,21 +1,13 @@
 classe Essai 
-     publique entier a, b;
+     publique entier a;
      a = 11;
-     b = 10;
-     si (a != 10) alors {
-     	
-     	b = 12;
-     }
-     sinon{
-     a = 12;
-     }
-     fsi
-     
-     si ( a == 2222 ) alors {
-     	b = 0;
-     }
-     fsi 
-     
-     ecrire b;
-     ecrire a;
+     a = 10;
+     a = 10;
+     a = 10;
+     a = 10;
+     si (a != 10) alors     	
+     	a = 12;
+     sinon 
+     	a = 14;
+     	fsi
 fin

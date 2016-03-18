@@ -1,13 +1,14 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.arbre.tds.Entree;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.Tds;
 import plic.exceptions.SemantiqueException;
 
-public class DeclarationAffectation extends ArbreAbstrait {
+public class DeclarationAffectation extends BlocDInstructions {
 	
 	private String idf, s, t;
 	private Expression e ;

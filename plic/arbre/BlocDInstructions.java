@@ -21,7 +21,8 @@ public class BlocDInstructions extends ArbreAbstrait {
 	}
 
 	public void ajouter(ArbreAbstrait a) {
-		instr.add(a);
+		if (a!=null)
+			instr.add(a);
 	}
 
 	@Override

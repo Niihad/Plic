@@ -41,9 +41,7 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ECRIR), "ecrire") ;
         lesTerminaux.put(new Integer(CodesLexicaux.SI), "si") ;
         lesTerminaux.put(new Integer(CodesLexicaux.ALORS), "alors") ;
-        lesTerminaux.put(new Integer(CodesLexicaux.ACCOLADEOUVERT), "{") ;
         lesTerminaux.put(new Integer(CodesLexicaux.SINON), "sinon") ;
-        lesTerminaux.put(new Integer(CodesLexicaux.ACCOLADEFERMER), "}") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FINSI), "fsi") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.STATUT), "publique | privee") ;
@@ -59,7 +57,6 @@ parser code {:
                 if (s.right >= 0)                    
                     m.append(" colonne : " + (s.right+1)) ;
             }
-            
             if (s.value != null) {
                 lesTerminaux.put(CodesLexicaux.CONSTANTEINT, "" + s.value) ;
                 lesTerminaux.put(CodesLexicaux.CONSTANTEBOOL, "" + s.value) ;
@@ -85,14 +82,15 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, DECL_CONST, DECLARATION,  DECL_CHAMP, LDECLARATION, INSTRUCTION, ECRIRE, LINSTRUCTION, DECLARATION_COND, LDECLARATION_COND, LDECLARATION_CONDS, DECLARATION_CONDS;
+non terminal ArbreAbstrait SYSTEME, CLASSE, LINSTRUCTION;
 non terminal String LIDF;
 non terminal Affectation AFFECT;
 non terminal Conditionnelle CONDITION;
 non terminal Expression EXPR, CSTE;
+non terminal BlocDInstructions LDECLARATION, DECLARATION, DECL_CONST, DECL_CHAMP, INSTRUCTION, ECRIRE;
 
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, SI, ALORS, ACCOLADEOUVERT, ACCOLADEFERMER, SINON, FINSI;
+terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, SI, ALORS, SINON, FINSI;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
 terminal Symbol    CLASS, FIN, EGALE, ECRIR;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, VIRGULE, POINT_VIRGULE, IDF, CONSTANTECHAINE, STATUT, TYPE;
@@ -113,56 +111,27 @@ start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
                 {: 
-                   RESULT = arbre;
+                   RESULT = c;
                 :};
 
   	        
 CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
+                    {: RESULT = ld; :}
                     | CLASS:c IDF:nomClasse FIN ;
                     
-LDECLARATION ::= LDECLARATION DECLARATION:d
-				 {: RESULT = d; :}
+LDECLARATION ::= LDECLARATION:ld DECLARATION:d
+ 				{: 
+ 				ld.ajouter(d);
+				  RESULT = ld; :}
 			 | DECLARATION:d
 			     {: RESULT = d; :};	
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
-				{: arbre.ajouter(dc) ;
-					RESULT = dc; :}
+				{: //arbre.ajouter(dc) ;
+					RESULT = null; :}
 			 | DECL_CONST:dc 
-			 	{: arbre.ajouter(dc);
+			 	{: //arbre.ajouter(dc);
 			 	   RESULT = dc; :};
-			 	   
-LDECLARATION_COND ::=  LDECLARATION_COND DECLARATION_COND:d
-				 {:
-				 bdiAlors.ajouter(d);
-				 RESULT = bdiAlors;:}
-			 | DECLARATION_COND:d
-			     {:
-			     //bdiAlors = new BlocDInstructions();
-				 bdiAlors.ajouter(d);
-			     RESULT = bdiAlors; 
-			     :};	
-				 		
-DECLARATION_COND  ::= DECL_CHAMP:dc POINT_VIRGULE
-				{: RESULT = dc; :}
-			 | DECL_CONST:dc 
-			 	{: RESULT = dc; :};
-			 	
-LDECLARATION_CONDS ::= LDECLARATION_CONDS DECLARATION_CONDS:d
-				 {:
-				 bdiSinon.ajouter(d);
-				 RESULT = bdiSinon;:}
-			 | DECLARATION_CONDS:d
-			     {:
-			     //bdiSinon = new BlocDInstructions();
-				 bdiSinon.ajouter(d);
-			     RESULT = bdiSinon; 
-			     :};	
-				 		
-DECLARATION_CONDS  ::= DECL_CHAMP:dc POINT_VIRGULE
-				{: RESULT = dc; :}
-			 | DECL_CONST:dc 
-			 	{: RESULT = dc; :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
@@ -204,15 +173,12 @@ ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
    	   | ECRIR EXPR:e
 		   {:  RESULT = new EcrireExpression(e); :};
 		   
-CONDITION ::= SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d ACCOLADEFERMER SINON ACCOLADEOUVERT LDECLARATION_CONDS:sinon ACCOLADEFERMER FINSI
+CONDITION ::= SI EXPR:e ALORS LDECLARATION:d SINON LDECLARATION:sinon FINSI
 			  {:
-			  bdiAlors = new BlocDInstructions();
-			  bdiSinon = new BlocDInstructions();
 			  RESULT = new Conditionnelle(e, d, sinon);
 			  :}
-			  | SI EXPR:e ALORS  ACCOLADEOUVERT LDECLARATION_COND:d  ACCOLADEFERMER FINSI
+			  | SI EXPR:e ALORS LDECLARATION:d FINSI
 			  {: 
-			  bdiAlors = new BlocDInstructions();
 			   RESULT = new Conditionnelle(e, d); 
 			  :};
 

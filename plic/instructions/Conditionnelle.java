@@ -1,11 +1,12 @@
 package plic.instructions;
 
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.exceptions.MauvaisTypeException;
 import plic.exceptions.SemantiqueException;
 
-public class Conditionnelle extends ArbreAbstrait {
+public class Conditionnelle extends BlocDInstructions {
 
 	private Expression expr;
 	private ArbreAbstrait alors;
