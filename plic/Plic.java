@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import plic.analyse.AnalyseurLexical;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.tds.Tds;
 import plic.exceptions.AnalyseException;
 
 /**
@@ -24,6 +25,7 @@ public class Plic {
     public Plic(String fichier) {
     	PrintWriter pw;
         try {
+        	//Tds.getInstance();
         	String fichierDest = fichier+".mips";
         	pw = new PrintWriter(new BufferedWriter(new FileWriter(fichierDest)));
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
