@@ -81,12 +81,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-non terminal ArbreAbstrait SYSTEME, CLASSE, LINSTRUCTION;
+non terminal ArbreAbstrait SYSTEME, CLASSE;
 non terminal String LIDF;
 non terminal Affectation AFFECT;
 non terminal Conditionnelle CONDITION;
 non terminal Expression EXPR, CSTE;
-non terminal BlocDInstructions LDECLARATION, DECLARATION, DECL_CONST, DECL_CHAMP, INSTRUCTION, ECRIRE;
+non terminal BlocDInstructions LDECLARATION, DECLARATION, DECL_CONST, DECL_CHAMP, LINSTRUCTION, INSTRUCTION, ECRIRE;
 
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER, SI, ALORS, SINON, FINSI;
@@ -147,13 +147,13 @@ LIDF ::= VIRGULE IDF:idf LIDF
 	   {:	ALidf = new ArrayList<String>();
 	   		ALidf.add(idf); :};
 
-DECL_CONST ::= LINSTRUCTION:li 
+DECL_CONST ::= INSTRUCTION:li
 			   {: RESULT = li; :};
 			   
-LINSTRUCTION ::= LINSTRUCTION INSTRUCTION:i
-				 {: RESULT = i; :}
-			 | INSTRUCTION:i
-			     {: RESULT = i; :};	
+//LINSTRUCTION ::= LINSTRUCTION INSTRUCTION:i
+				// {: RESULT = i; :}
+			// | INSTRUCTION:i
+			    // {: RESULT = i; :};	
 
 INSTRUCTION ::= AFFECT:a POINT_VIRGULE
 				{: RESULT = a; :}
