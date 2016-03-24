@@ -4,7 +4,9 @@ import plic.arbre.ArbreAbstrait;
 import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.arbre.tds.Entree;
+import plic.arbre.tds.EntreeVar;
 import plic.arbre.tds.Symbole;
+import plic.arbre.tds.SymboleVar;
 import plic.arbre.tds.Tds;
 import plic.exceptions.SemantiqueException;
 
@@ -19,9 +21,9 @@ public class DeclarationAffectation extends BlocDInstructions {
 		this.s = s;
 		this.t = t;
 		this.e = e;
-		Symbole sy = new Symbole(s,t);
+		Symbole sy = new SymboleVar(s,t);
 		sy.setValeur(e.valeur());
-		Tds.getInstance().ajouterChamp(new Entree(idf, idfleft), sy);
+		Tds.getInstance().ajouterChamp(new EntreeVar(idf, idfleft), sy);
 		affectation = new Affectation(idf, e, idfleft);
 	}
 	

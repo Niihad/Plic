@@ -4,6 +4,7 @@ import plic.arbre.ArbreAbstrait;
 import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.arbre.tds.Entree;
+import plic.arbre.tds.EntreeVar;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.Tds;
 import plic.exceptions.MauvaisTypeException;
@@ -24,11 +25,11 @@ public class Affectation extends BlocDInstructions{
 	}
 	
 	public void verifier() throws SemantiqueException {
-		Tds.getInstance().verifier(new Entree(idf, nbLigne),expr);
-		Symbole s = Tds.getInstance().identifier(new Entree(idf, nbLigne),nbLigne);
+		Tds.getInstance().verifier(new EntreeVar(idf, nbLigne),expr);
+		Symbole s = Tds.getInstance().identifier(new EntreeVar(idf, nbLigne),nbLigne);
 		expr.verifier();
 		if(!s.getType().equals(expr.getType())){
-			throw new MauvaisTypeException("Type non conforme, renseigne:"+Tds.getInstance().identifier(new Entree(idf),nbLigne).getType()+", attendu :"+ expr.getType(),expr.getLigne());
+			throw new MauvaisTypeException("Type non conforme, renseigne:"+Tds.getInstance().identifier(new EntreeVar(idf),nbLigne).getType()+", attendu :"+ expr.getType(),expr.getLigne());
 		}
 	}
 	
@@ -45,7 +46,7 @@ public class Affectation extends BlocDInstructions{
 		 affectation.append("	# Affectation de "+idf+" a la valeur de "+expr.toString()+"\n");
 		 affectation.append("	add $sp,$sp,4 \n" +
 		 					"	lw $v0,($sp) \n" +
-		 					"	sw $v0,"+ Tds.getInstance().getDeplacement(new Entree(idf)) +"($s7)\n");
+		 					"	sw $v0,"+ Tds.getInstance().getDeplacement(new EntreeVar(idf)) +"($s7)\n");
 		 return affectation.toString() ;
 	}
 	
