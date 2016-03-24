@@ -184,7 +184,11 @@ CONDITION ::= SI EXPR:e ALORS LDECLARATION:d SINON LDECLARATION:sinon FINSI
 			  | SI EXPR:e ALORS LDECLARATION:d FINSI
 			  {: 
 			   RESULT = new Conditionnelle(e, d); 
-			  :};
+			  :}
+			  | SI EXPR:e ALORS FINSI								{: RESULT = new Conditionnelle(e, null, null); :}
+			  | SI EXPR:e ALORS SINON LDECLARATION:sinon FINSI		{: RESULT = new Conditionnelle(e, null, sinon); :}
+			  | SI EXPR:e ALORS LDECLARATION:d SINON FINSI 			{: RESULT = new Conditionnelle(e, d, null); :}
+			  | SI EXPR:e ALORS SINON FINSI							{: RESULT = new Conditionnelle(e, null, null); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

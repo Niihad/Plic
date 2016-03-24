@@ -11,6 +11,7 @@ public class Conditionnelle extends BlocDInstructions {
 	private Expression expr;
 	private ArbreAbstrait alors;
 	private ArbreAbstrait sinon;
+	private int etiquette;
 
 	public Conditionnelle(Expression e, ArbreAbstrait alors, ArbreAbstrait sinon) {
 		super();
@@ -52,45 +53,33 @@ public class Conditionnelle extends BlocDInstructions {
 	public String toString() {
 		if (sinon != null)
 			return "Conditionnelle si " + expr.toString() + "\n\tAlors: \n"
-					+ alors.toString() + "\n\tSinon: \n" + sinon.toString()
+					+ (alors != null ? alors.toString() : "") + "\n\tSinon: \n" + sinon.toString()
 					+ "\nFinSi";
 		else
 			return "Conditionnelle si " + expr.toString() + "\n\tAlors: \n"
-					+ alors.toString() + "\nFinSi";
+					+ (alors != null ? alors.toString() : "") + "\nFinSi";
 
 	}
 
 	@Override
 	public String toMips() {
-		StringBuilder condition = new StringBuilder();
-		if (sinon != null) {
-			condition.append("\n" + expr.toMips() + "\n");
-			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
-			condition.append("	add $sp,$sp,4 \n"
-					+ "	lw $v0,($sp)\n"
-					+ "	si"
-					+ ArbreAbstrait.cptEtiquette + ":\n	blez $sp, sinon"
-					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
-					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
-					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette
-					+ "\n" + "	sinon" + ArbreAbstrait.cptEtiquette + ":\n"
-					+ "		" + sinon.toMips() + "\n" + "	finsi"
-					+ ArbreAbstrait.cptEtiquette + ":\n");
-
-			incCptEtiquette();
-		} else {
-			condition.append("\n" + expr.toMips() + "\n");
-			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
-			condition.append("	add $sp,$sp,4 \n" + "	si"
-					+ ArbreAbstrait.cptEtiquette + ": blez $sp, finsi"
-					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
-					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
-					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette
-					+ "\n\n	finsi" + ArbreAbstrait.cptEtiquette + ":\n");
-
-			incCptEtiquette();
-		}
-		return condition.toString();
+		this.etiquette = ArbreAbstrait.cptEtiquette;
+        StringBuilder condition = new StringBuilder();
+        condition.append("\n" + expr.toMips() + "\n");
+        condition.append("    # Conditionnelle de " + expr.toString() + "\n");
+        condition.append("    add $sp,$sp,4 \n" 
+				+ "	lw $v0,($sp) \n"
+        		+ "    si"
+                + etiquette + (sinon != null ? ": blez $v0, sinon" : ": blez $v0, finsi")
+                + etiquette + "\n" + "    alors"
+                + etiquette+ ":\n" + "        "
+                + (alors != null ?  alors.toMips() : "") + "    j finsi" + etiquette);
+        if(sinon != null){
+            condition.append("\n" + "    sinon" + etiquette + ":\n"+ "        " + sinon.toMips());
+        }
+        condition.append("\nfinsi" + etiquette + ":\n");
+        incCptEtiquette();
+        return condition.toString();
 	}
 
 }

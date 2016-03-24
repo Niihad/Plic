@@ -18,6 +18,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 	public BlocDInstructions() {
 		super();
 		instr = new ArrayList<ArbreAbstrait>();
+		isArbreDeBase = false;
 	}
 
 	public void ajouter(ArbreAbstrait a) {
@@ -48,14 +49,16 @@ public class BlocDInstructions extends ArbreAbstrait {
 	@Override
 	public String toMips() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("# zone de reservation de memoire\n\n");
-		sb.append("	# initialise s7 avec sp \n");
-		sb.append("	move $s7,$sp \n");
-		sb.append("	# reserve les zones memoire des variables \n");
-		for (int i = 0; i < Tds.getInstance().getTds().size(); i++) {
-			sb.append("	addi $sp ,$sp,-4 \n");
+		if (isArbreDeBase){
+			sb.append("# zone de reservation de memoire\n\n");
+			sb.append("	# initialise s7 avec sp \n");
+			sb.append("	move $s7,$sp \n");
+			sb.append("	# reserve les zones memoire des variables \n");
+			for (int i = 0; i < Tds.getInstance().getTds().size(); i++) {
+				sb.append("	addi $sp ,$sp,-4 \n");
+			}
+			sb.append("\n# zone programme\n");
 		}
-		sb.append("\n# zone programme\n");
 		for (ArbreAbstrait a : instr) {
 			if (a != null)
 				sb.append(a.toMips());

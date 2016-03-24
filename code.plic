@@ -1,13 +1,10 @@
 classe Essai 
      publique entier a;
-     a = 10;
-     si (a == 11) alors
-     	publique entier b;
-     	a = 12;
-     	si (a == 3) alors
-     	  	a = 14;
-     	 fsi
+     publique entier b;
+     a = 12;
+     si (a == 12) alors
+     	a = 13;
      sinon
-      a = 13;
-   	fsi
+     fsi
+     ecrire a;
 fin

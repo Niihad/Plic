@@ -8,12 +8,12 @@
 
 # zone programme
 
-	# Range 10 dans $v0 et l'empile
-	li $v0, 10
+	# Range 12 dans $v0 et l'empile
+	li $v0, 12
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Affectation de a a la valeur de 10
+	# Affectation de a a la valeur de 12
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
@@ -23,12 +23,12 @@
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Range 11 dans $v0 et l'empile
-	li $v0, 11
+	# Range 12 dans $v0 et l'empile
+	li $v0, 12
 	sw $v0,($sp) 
 	add $sp ,$sp,-4 
 
-	# Compare (a == 11)
+	# Compare (a == 12)
 	add $sp,$sp,4
 	lw $v0,($sp)
 	add $sp,$sp,4
@@ -45,97 +45,12 @@
 	add $sp,$sp,-4
 	finsi1:
 
-	# Conditionnelle de (a == 11)
-	add $sp,$sp,4 
-	lw $v0,($sp)
-	si2:
-	blez $sp, sinon2
-	alors2:
-		# zone de reservation de memoire
-
-	# initialise s7 avec sp 
-	move $s7,$sp 
-	# reserve les zones memoire des variables 
-	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
-
-# zone programme
-
-	# Range 12 dans $v0 et l'empile
-	li $v0, 12
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de a a la valeur de 12
-	add $sp,$sp,4 
+    # Conditionnelle de (a == 12)
+    add $sp,$sp,4 
 	lw $v0,($sp) 
-	sw $v0,0($s7)
-
-	# Range valeur de a dans $v0 et l'empile
-	lw $v0,0($s7)
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Range 3 dans $v0 et l'empile
-	li $v0, 3
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Compare (a == 3)
-	add $sp,$sp,4
-	lw $v0,($sp)
-	add $sp,$sp,4
-	lw $t8,($sp)
-	bne $v0,$t8 sinon3
-	alors3:
-	li $v0, 1
-	sw $v0,0($sp)
-	add $sp,$sp,-4
-	j finsi3
-	sinon3:
-	li $v0, 0
-	sw $v0,0($sp)
-	add $sp,$sp,-4
-	finsi3:
-
-	# Conditionnelle de (a == 3)
-	add $sp,$sp,4 
-	si4: blez $sp, finsi4
-	alors4:
-		# zone de reservation de memoire
-
-	# initialise s7 avec sp 
-	move $s7,$sp 
-	# reserve les zones memoire des variables 
-	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
-
-# zone programme
-
-	# Range 14 dans $v0 et l'empile
-	li $v0, 14
-	sw $v0,($sp) 
-	add $sp ,$sp,-4 
-
-	# Affectation de a a la valeur de 14
-	add $sp,$sp,4 
-	lw $v0,($sp) 
-	sw $v0,0($s7)
-	j finsi4
-
-	finsi4:
-	j finsi5
-	sinon5:
-		# zone de reservation de memoire
-
-	# initialise s7 avec sp 
-	move $s7,$sp 
-	# reserve les zones memoire des variables 
-	addi $sp ,$sp,-4 
-	addi $sp ,$sp,-4 
-
-# zone programme
-
+    si0: blez $v0, finsi0
+    alors0:
+        
 	# Range 13 dans $v0 et l'empile
 	li $v0, 13
 	sw $v0,($sp) 
@@ -145,5 +60,15 @@
 	add $sp,$sp,4 
 	lw $v0,($sp) 
 	sw $v0,0($s7)
+    j finsi0
+finsi0:
+	# Ecrire a
+	# Range valeur de a dans $v0 et l'empile
+	lw $v0,0($s7)
+	sw $v0,($sp) 
+	add $sp ,$sp,-4 
 
-	finsi5:
+	add $sp,$sp,4 
+	li $v0, 1 
+	lw $a0,($sp) 
+	syscall
