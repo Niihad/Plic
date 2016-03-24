@@ -35,7 +35,6 @@ public class Plic {
 			pw.write(res);
 
 			pw.close();
-			 
 			System.out.println("COMPILATION OK\n");
             System.err.println("expression stockee dans l'arbre : \n" + arbre);
         } 

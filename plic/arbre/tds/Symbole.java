@@ -1,6 +1,6 @@
 package plic.arbre.tds;
 
-public class Symbole {
+public abstract class Symbole {
 	
 	private String statut;
 	private String type;

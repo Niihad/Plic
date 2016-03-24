@@ -1,6 +1,6 @@
 package plic.arbre.tds;
 
-public class Entree {
+public abstract class Entree {
 	
 	protected String idf;
 	public int ligne;

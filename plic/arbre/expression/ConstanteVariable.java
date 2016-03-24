@@ -1,6 +1,7 @@
 package plic.arbre.expression;
 
 import plic.arbre.tds.Entree;
+import plic.arbre.tds.EntreeVar;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.Tds;
 import plic.exceptions.AnalyseException;
@@ -24,9 +25,9 @@ public class ConstanteVariable extends Constante {
 	
 	@Override
 	public void verifier() throws AnalyseException {
-		this.s = Tds.getInstance().getTds().get(new Entree(this.cste));
+		this.s = Tds.getInstance().getTds().get(new EntreeVar(this.cste));
 		if(s == null){
-			Expression exp = Tds.getInstance().getAttente().get(new Entree(this.cste));
+			Expression exp = Tds.getInstance().getAttente().get(new EntreeVar(this.cste));
 			if (exp == null)
 				throw new SemantiqueException("Variable utilisee en tant que membre droit avant d'etre declaree", ligne); // num ligne a ajouter
 			valeur = exp.valeur();
@@ -40,7 +41,7 @@ public class ConstanteVariable extends Constante {
 	@Override
 	public String toMips() {
 		StringBuilder entier = new StringBuilder();
-		this.s = Tds.getInstance().getTds().get(new Entree(this.cste));
+		this.s = Tds.getInstance().getTds().get(new EntreeVar(this.cste));
 		entier.append("	# Range valeur de "+ this.cste +" dans $v0 et l'empile\n"+
 			  	  "	lw $v0,"+ s.getDepl() +"($s7)\n" +
 			  	  "	sw $v0,($sp) \n" +
