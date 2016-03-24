@@ -109,33 +109,24 @@ precedence left NON ;
 start with SYSTEME ;
 
 SYSTEME    ::=  CLASSE:c
-                {: 
-                	//arbre.ajouter(c);
-                   RESULT = c;
-                :};
+                {: RESULT = c; :};
 
-  	        
 CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
-                    {: 
-                    RESULT = ld; :}
+                    {: RESULT = ld; :}
                     | CLASS:c IDF:nomClasse FIN ;
                     
 LDECLARATION ::= LDECLARATION:ld DECLARATION:d
- 				{: 
- 				ld.ajouter(d);
-				  RESULT = ld;  :}
+ 				{: ld.ajouter(d);
+				  RESULT = ld; :}
 			 | DECLARATION:d
-			     {:	
-			      BlocDInstructions b = new BlocDInstructions() ;
+			    {:BlocDInstructions b = new BlocDInstructions() ;
 			      b.ajouter(d) ;
 				  RESULT = b; :};
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
-				{: //arbre.ajouter(dc) ;
-					RESULT = dc; :}
+				{: RESULT = dc; :}
 			 | DECL_CONST:dc 
-			 	{: //arbre.ajouter(dc);
-			 	   RESULT = dc; :};
+			 	{: RESULT = dc; :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
@@ -153,8 +144,8 @@ LIDF ::= VIRGULE IDF:idf LIDF
 	   {:	ALidf = new ArrayList<String>();
 	   		ALidf.add(idf); :};
 
-DECL_CONST ::= INSTRUCTION:i 
-			   {: RESULT = i; :};
+DECL_CONST ::= LINSTRUCTION:li 
+			   {: RESULT = li; :};
 			   
 LINSTRUCTION ::= LINSTRUCTION INSTRUCTION:i
 				 {: RESULT = i; :}
@@ -178,17 +169,17 @@ ECRIRE ::= ECRIR CONSTANTECHAINE:chaine
 		   {:  RESULT = new EcrireExpression(e); :};
 		   
 CONDITION ::= SI EXPR:e ALORS LDECLARATION:d SINON LDECLARATION:sinon FINSI
-			  {:
-			  RESULT = new Conditionnelle(e, d, sinon);
-			  :}
+			  {:RESULT = new Conditionnelle(e, d, sinon); :}
 			  | SI EXPR:e ALORS LDECLARATION:d FINSI
-			  {: 
-			   RESULT = new Conditionnelle(e, d); 
-			  :}
-			  | SI EXPR:e ALORS FINSI								{: RESULT = new Conditionnelle(e, null, null); :}
-			  | SI EXPR:e ALORS SINON LDECLARATION:sinon FINSI		{: RESULT = new Conditionnelle(e, null, sinon); :}
-			  | SI EXPR:e ALORS LDECLARATION:d SINON FINSI 			{: RESULT = new Conditionnelle(e, d, null); :}
-			  | SI EXPR:e ALORS SINON FINSI							{: RESULT = new Conditionnelle(e, null, null); :};
+			  {: RESULT = new Conditionnelle(e, d); :}
+			  | SI EXPR:e ALORS FINSI								
+			  {: RESULT = new Conditionnelle(e, null, null); :}
+			  | SI EXPR:e ALORS SINON LDECLARATION:sinon FINSI		
+			  {: RESULT = new Conditionnelle(e, null, sinon); :}
+			  | SI EXPR:e ALORS LDECLARATION:d SINON FINSI 			
+			  {: RESULT = new Conditionnelle(e, d, null); :}
+			  | SI EXPR:e ALORS SINON FINSI							
+			  {: RESULT = new Conditionnelle(e, null, null); :};
 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
