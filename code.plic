@@ -2,6 +2,7 @@ classe Essai
      publique entier a;
      a = 10;
      si (a == 11) alors
+     	publique entier b;
      	a = 12;
      	si (a == 3) alors
      	  	a = 14;

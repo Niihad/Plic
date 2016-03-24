@@ -21,16 +21,18 @@ public class BlocDInstructions extends ArbreAbstrait {
 	}
 
 	public void ajouter(ArbreAbstrait a) {
-		//if (a != null)
-			instr.add(a);
+		// if (a != null)
+		instr.add(a);
 	}
 
 	@Override
 	public String toString() {
 		String str = "";
 		for (ArbreAbstrait a : instr) {
-			str += a.toString();
-			str += "\n";
+			if (a != null) {
+				str += a.toString();
+				str += "\n";
+			}
 		}
 		return str;
 	}
@@ -38,7 +40,8 @@ public class BlocDInstructions extends ArbreAbstrait {
 	@Override
 	public void verifier() throws SemantiqueException {
 		for (ArbreAbstrait a : instr) {
-			a.verifier();
+			if (a != null)
+				a.verifier();
 		}
 	}
 
@@ -54,7 +57,8 @@ public class BlocDInstructions extends ArbreAbstrait {
 		}
 		sb.append("\n# zone programme\n");
 		for (ArbreAbstrait a : instr) {
-			sb.append(a.toMips());
+			if (a != null)
+				sb.append(a.toMips());
 		}
 		return sb.toString();
 	}

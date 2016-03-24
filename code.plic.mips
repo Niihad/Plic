@@ -4,6 +4,7 @@
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
 	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
 
 # zone programme
 
@@ -46,13 +47,16 @@
 
 	# Conditionnelle de (a == 11)
 	add $sp,$sp,4 
-	silw $v0,($sp)2: blez $sp, sinon2
+	lw $v0,($sp)
+	si2:
+	blez $sp, sinon2
 	alors2:
 		# zone de reservation de memoire
 
 	# initialise s7 avec sp 
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
+	addi $sp ,$sp,-4 
 	addi $sp ,$sp,-4 
 
 # zone programme
@@ -104,6 +108,7 @@
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
 	addi $sp ,$sp,-4 
+	addi $sp ,$sp,-4 
 
 # zone programme
 
@@ -126,6 +131,7 @@
 	# initialise s7 avec sp 
 	move $s7,$sp 
 	# reserve les zones memoire des variables 
+	addi $sp ,$sp,-4 
 	addi $sp ,$sp,-4 
 
 # zone programme

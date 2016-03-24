@@ -128,7 +128,7 @@ LDECLARATION ::= LDECLARATION:ld DECLARATION:d
 			     {:	
 			      BlocDInstructions b = new BlocDInstructions() ;
 			      b.ajouter(d) ;
-				  RESULT = b; :};	
+				  RESULT = b; :};
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
 				{: //arbre.ajouter(dc) ;

@@ -66,9 +66,10 @@ public class Conditionnelle extends BlocDInstructions {
 		if (sinon != null) {
 			condition.append("\n" + expr.toMips() + "\n");
 			condition.append("	# Conditionnelle de " + expr.toString() + "\n");
-			condition.append("	add $sp,$sp,4 \n" + "	si"
-					+ "lw $v0,($sp)"
-					+ ArbreAbstrait.cptEtiquette + ": blez $sp, sinon"
+			condition.append("	add $sp,$sp,4 \n"
+					+ "	lw $v0,($sp)\n"
+					+ "	si"
+					+ ArbreAbstrait.cptEtiquette + ":\n	blez $sp, sinon"
 					+ ArbreAbstrait.cptEtiquette + "\n" + "	alors"
 					+ ArbreAbstrait.cptEtiquette + ":\n" + "		"
 					+ alors.toMips() + "	j finsi" + ArbreAbstrait.cptEtiquette
