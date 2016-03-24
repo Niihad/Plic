@@ -125,8 +125,10 @@ LDECLARATION ::= LDECLARATION:ld DECLARATION:d
 				 		
 DECLARATION  ::= DECL_CHAMP:dc POINT_VIRGULE
 				{: RESULT = dc; :}
-			 | DECL_CONST:dc 
+			 | DECL_CONST:dc
 			 	{: RESULT = dc; :};
+			 //| DECL_FONCTION:df
+			 	//{: RESULT = df; :};
 			 
 DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
 			    {: RESULT = new Declaration(idf, idfleft+1, s, t); :}
@@ -137,6 +139,7 @@ DECL_CHAMP ::= STATUT:s TYPE:t IDF:idf
    		  		:}
    		  	| STATUT:s TYPE:t IDF:idf EGALE EXPR:e
 			    {: RESULT = new DeclarationAffectation(idf, s, t, e, idfleft+1); :};
+			    
 
 LIDF ::= VIRGULE IDF:idf LIDF
 		 {:	ALidf.add(idf); :}
