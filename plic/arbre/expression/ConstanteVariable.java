@@ -10,9 +10,11 @@ public class ConstanteVariable extends Constante {
 	
 	private Symbole s;
 	private int valeur;
+	private int ligne;
 
 	public ConstanteVariable(String texte, int nLigne) {
 		super(texte, nLigne);
+		ligne = nLigne;
 	}
 	
 	public int valeur(){
@@ -26,7 +28,7 @@ public class ConstanteVariable extends Constante {
 		if(s == null){
 			Expression exp = Tds.getInstance().getAttente().get(new Entree(this.cste));
 			if (exp == null)
-				throw new SemantiqueException("Variable utilisee en tant que membre droit avant d'etre declaree", 404); // num ligne a ajouter
+				throw new SemantiqueException("Variable utilisee en tant que membre droit avant d'etre declaree", ligne); // num ligne a ajouter
 			valeur = exp.valeur();
 			type = exp.getType();
 		}else{
