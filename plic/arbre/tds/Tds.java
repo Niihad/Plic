@@ -90,6 +90,10 @@ public class Tds {
 		}
 	}*/
 	
+	public void entreeBloc(){
+		
+	}
+	
 	public int getDeplacement(Entree entree) throws PasDeDeclarationException{
 		Symbole s = tds.get(entree);
 		this.identifier(entree,entree.getLigne());

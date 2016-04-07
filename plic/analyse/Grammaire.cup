@@ -108,8 +108,13 @@ precedence left NON ;
  
 start with SYSTEME ;
 
-SYSTEME    ::=  CLASSE:c
-                {: RESULT = c; :};
+SYSTEME  ::=  LCLASSE:lc
+         {: RESULT = lc; :};
+                
+LCLASSE ::= LCLASSE:lc CLASSE:d
+		{: RESULT = lc; :}
+		| CLASSE:c
+		{: RESULT = c :}
 
 CLASSE ::= CLASS:c IDF:nomClasse LDECLARATION:ld FIN
                     {: RESULT = ld; :}

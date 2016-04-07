@@ -1,9 +1,7 @@
 package plic.instructions;
 
-import plic.arbre.ArbreAbstrait;
 import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
-import plic.arbre.tds.Entree;
 import plic.arbre.tds.EntreeVar;
 import plic.arbre.tds.Symbole;
 import plic.arbre.tds.SymboleVar;

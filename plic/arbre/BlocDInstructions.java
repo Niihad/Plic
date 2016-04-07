@@ -19,6 +19,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 		super();
 		instr = new ArrayList<ArbreAbstrait>();
 		isArbreDeBase = false;
+		Tds.getInstance().entreeBloc();
 	}
 
 	public void ajouter(ArbreAbstrait a) {

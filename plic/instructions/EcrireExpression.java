@@ -1,6 +1,5 @@
 package plic.instructions;
 
-import plic.arbre.ArbreAbstrait;
 import plic.arbre.BlocDInstructions;
 import plic.arbre.expression.Expression;
 import plic.exceptions.PasDeDeclarationException;
